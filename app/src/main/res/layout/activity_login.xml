@@ -60,7 +60,7 @@
         android:layout_marginBottom="41dp"
         android:layout_marginEnd="120dp"
         android:layout_marginStart="120dp"
-        android:background="#00000"
+        android:background="@android:color/transparent"
         android:text="Create an Account"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
