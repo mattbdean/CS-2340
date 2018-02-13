@@ -62,6 +62,7 @@
 
     <Button
         android:id="@+id/register"
+        android:onClick="onRegister"
         android:textAllCaps="false"
         android:textColor="#0000ff"
         android:layout_width="0dp"
