@@ -23,6 +23,14 @@ public final class LoginActivity extends AppCompatActivity {
         this.passwordField = findViewById(R.id.password);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        this.usernameField.setText("");
+        this.passwordField.setText("");
+    }
+
     public void onLogin(View view) {
         if (usernameField.getText().toString().equals(USERNAME) &&
                 passwordField.getText().toString().equals(PASSWORD)) {
