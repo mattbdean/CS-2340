@@ -6,4 +6,6 @@
     <string name="register_option">Don\'t have an account?
         Register here. Or, continue as a guest.</string>
     <string name="app_logo">App Logo</string>
+    <string name="logout">Logout</string>
+    <string name="invalid_creds">Invalid username or password</string>
 </resources>
