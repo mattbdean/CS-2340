@@ -2,6 +2,7 @@ package com.github.alphabet26;
 
 import android.content.Intent;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -19,8 +20,8 @@ public final class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        this.usernameField = findViewById(R.id.username);
-        this.passwordField = findViewById(R.id.password);
+        this.usernameField = ((TextInputLayout) findViewById(R.id.username)).getEditText();
+        this.passwordField = ((TextInputLayout) findViewById(R.id.password)).getEditText();
     }
 
     @Override
