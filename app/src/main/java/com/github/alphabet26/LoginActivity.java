@@ -41,4 +41,8 @@ public final class LoginActivity extends AppCompatActivity {
             Snackbar.make(view, R.string.invalid_creds, Snackbar.LENGTH_LONG).show();
         }
     }
+
+    public void onRegister(View view) {
+        startActivity(new Intent(this, RegisterActivity.class));
+    }
 }
