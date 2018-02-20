@@ -1,28 +1,17 @@
 sudo: false
 language: android
 jdk: oraclejdk8
-env:
-  global:
-    - ANDROID_TARGET=android-27
-    - ANDROID_ABI=armeabi-v7a
-before_install:
-# https://stackoverflow.com/a/47719835/1275092
-- yes | sdkmanager "platforms;android-27"
 android:
   components:
-    # This is necessary to get the latest version of the SDK tools
     - tools
     - platform-tools
-    - tools
 
     - build-tools-26.0.2
     - android-27
-    - sys-image-${ANDROID_ABI}-${ANDROID_TARGET}
+before_install:
+# https://stackoverflow.com/a/47719835/1275092
+- yes | sdkmanager "platforms;android-27"
 script:
-- ./gradlew build jacocoTestReport assembleAndroidTest
-- echo no | android create avd --force -n test -t ${ANDROID_TARGET} --abi ${ANDROID_ABI}
-- emulator -avd test -no-skin -no-audio -no-window &
-- android-wait-for-emulator
-- ./gradlew connectedCheck
+- ./gradlew check jacocoTestReport
 after_success:
 - bash <(curl -s https://codecov.io/bash)
