@@ -10,11 +10,8 @@ before_install:
 - yes | sdkmanager "platforms;android-27"
 android:
   components:
-    # This is necessary to get the latest version of the SDK tools
     - tools
     - platform-tools
-    - tools
-
     - build-tools-26.0.2
     - android-27
     - sys-image-${ANDROID_ABI}-${ANDROID_TARGET}
