@@ -12,12 +12,15 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
-        debug {
-            testCoverageEnabled true
-        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    testOptions {
+        unitTests {
+            // For Robolectric
+            includeAndroidResources = true
         }
     }
 }
@@ -27,8 +30,6 @@ dependencies {
     implementation 'com.android.support:design:27.0.2'
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
 
-    def truth = 'com.google.truth:truth:0.39'
-    testImplementation truth
-    androidTestImplementation truth
-    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    testImplementation 'com.google.truth:truth:0.39'
+    testImplementation 'org.robolectric:robolectric:3.7.1'
 }
