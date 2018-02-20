@@ -24,14 +24,6 @@ public final class LoginActivity extends AppCompatActivity {
         this.passwordField = ((TextInputLayout) findViewById(R.id.password)).getEditText();
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        this.usernameField.setText("");
-        this.passwordField.setText("");
-    }
-
     public void onLogin(View view) {
         if (usernameField.getText().toString().equals(USERNAME) &&
                 passwordField.getText().toString().equals(PASSWORD)) {
@@ -40,6 +32,12 @@ public final class LoginActivity extends AppCompatActivity {
         } else {
             Snackbar.make(view, R.string.invalid_creds, Snackbar.LENGTH_LONG).show();
         }
+
+        // Clear the form and focus the username field so that the user can start another login
+        // attempt
+        usernameField.setText("");
+        passwordField.setText("");
+        usernameField.requestFocus();
     }
 
     public void onRegister(View view) {
