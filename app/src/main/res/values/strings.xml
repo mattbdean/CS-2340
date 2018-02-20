@@ -7,5 +7,12 @@
         Register here. Or, continue as a guest.</string>
     <string name="app_logo">App Logo</string>
     <string name="logout">Logout</string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
     <string name="invalid_creds">Invalid username or password</string>
-</resources>
+    <string name="registration">Create an Account</string>
+    <string name="registration_name">Name</string>
+    <string name="registration_username">Username</string>
+    <string name="registration_password">Password</string>
+    <string name="registration_user_type">What type of account are you signing up for?</string>
+/></resources>
