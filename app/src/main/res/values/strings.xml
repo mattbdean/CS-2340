@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">Shelter Finder</string>
     <string name="login_button">Login</string>
-    <string name="password_field">Password</string>
-    <string name="username_field">Username</string>
+    <string name="password_hint">Password</string>
+    <string name="username_hint">Username</string>
     <string name="register_option">Don\'t have an account?
         Register here. Or, continue as a guest.</string>
     <string name="app_logo">App Logo</string>
