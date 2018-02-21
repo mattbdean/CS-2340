@@ -1,32 +1,29 @@
 package com.github.alphabet26;
 
-/**
- * Created by vinda on 2/20/2018.
- */
+import java.util.UUID;
 
-public class User {
-    private String name;
-    private String username;
-    private String password;
-    private UserType userType;
+public final class User {
+    private final UUID id;
+    private final String name;
+    private final String username;
+    private final String passwordHash;
+    private final UserType userType;
 
-    public User(String name, String username, String password, UserType userType) {
+    public User(UUID id, String name, String username, String passwordHash, UserType userType) {
+        this.id = id;
         this.name = name;
         this.username = username;
-        this.password = password;
+        this.passwordHash = passwordHash;
         this.userType = userType;
     }
 
+    public User(UserRegistrationInfo info, String passwordHash) {
+        this(UUID.randomUUID(), info.getName(), info.getUsername(), passwordHash, info.getUserType());
+    }
+
+    public UUID getId() { return id; }
     public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
-
-    public String getUsername()  { return username; }
-    public void setUsername(String username) { this.username = username; }
-
-    public String getPassword() { return password; }
-    public void setPassword(String password) { this.password = password; }
-
+    public String getUsername() { return username; }
+    public String getPasswordHash() { return passwordHash; }
     public UserType getUserType() { return userType; }
-    public void setUserType(UserType userType) { this.userType = userType; }
-
 }
