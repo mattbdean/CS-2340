@@ -10,6 +10,7 @@
     <string name="login">Login</string>
     <string name="register">Register</string>
     <string name="invalid_creds">Invalid username or password</string>
+    <string name="welcome_message">Welcome, %s</string>
     <string name="registration">Create an Account</string>
     <string name="registration_name">Name</string>
     <string name="registration_username">Username</string>

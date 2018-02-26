@@ -66,4 +66,18 @@ public class InMemoryUserDaoTest {
     public void find_shouldReturnNullWhenNoUserCouldBeFound() {
         assertThat(dao.find(UUID.randomUUID())).isNull();
     }
+
+    @Test
+    public void login_shouldReturnNullWhenGivenInvalidCredentials() {
+        assertThat(dao.login("username", "password")).isNull();
+    }
+
+    @Test
+    public void login_shouldReturnUserInfoOnSuccess() {
+        String username = "username", password = "password";
+        User newUser = dao.register(
+                new UserRegistrationInfo("test user", username, password, UserType.USER));
+
+        assertThat(dao.login(username, password)).isEqualTo(newUser);
+    }
 }

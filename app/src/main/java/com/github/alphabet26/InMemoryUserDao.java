@@ -39,6 +39,21 @@ public final class InMemoryUserDao implements UserDao {
         }
     }
 
+    @Override
+    public User login(String username, String password) {
+        String hash = naiveHash(password);
+
+        synchronized (lock) {
+            for (User u : users) {
+                if (u.getUsername().equals(username) && u.getPasswordHash().equals(hash)) {
+                    return u;
+                }
+            }
+        }
+
+        return null;
+    }
+
     /**
      * Hashes the given string using SHA-256. No salt is used, which is why this is a "naive" hash.
      */

@@ -13,8 +13,6 @@ import android.widget.Spinner;
 import java.lang.ref.WeakReference;
 
 public final class RegisterActivity extends AppCompatActivity {
-    private UserDao userDao;
-
     private EditText nameField;
     private EditText usernameField;
     private EditText passwordField;
@@ -24,8 +22,6 @@ public final class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-
-        userDao = new InMemoryUserDao();
 
         nameField = ((TextInputLayout) findViewById(R.id.reg_name)).getEditText();
         usernameField = ((TextInputLayout) findViewById(R.id.reg_username)).getEditText();
@@ -44,7 +40,7 @@ public final class RegisterActivity extends AppCompatActivity {
                 passwordField.getText().toString(),
                 (UserType) userTypeSpinner.getSelectedItem()
         );
-        new RegisterTask(this, userDao).execute(info);
+        new RegisterTask(this).execute(info);
     }
 
     /**
@@ -54,16 +50,17 @@ public final class RegisterActivity extends AppCompatActivity {
         // Use a WeakReference so if the activity happens to finish before we've finished our
         // processing, we don't prevent the Activity from being GC'd
         private final WeakReference<RegisterActivity> activity;
-        private final UserDao userDao;
 
-        RegisterTask(RegisterActivity activity, UserDao userDao) {
+        RegisterTask(RegisterActivity activity) {
             this.activity = new WeakReference<>(activity);
-            this.userDao = userDao;
         }
 
         @Override
         protected User doInBackground(UserRegistrationInfo... userRegistrationInfos) {
-            return userDao.register(userRegistrationInfos[0]);
+            User newUser = App.get().getUserDao().register(userRegistrationInfos[0]);
+            App.get().onLogin(newUser);
+
+            return newUser;
         }
 
         @Override
