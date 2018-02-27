@@ -3,7 +3,7 @@ package com.github.alphabet26;
 import android.app.Application;
 import android.support.annotation.NonNull;
 
-public final class App extends Application {
+public class App extends Application {
     private static App instance;
 
     private UserDao userDao;
