@@ -1,5 +1,7 @@
 package com.github.alphabet26;
 
+import android.support.annotation.NonNull;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -10,7 +12,7 @@ public final class InMemoryShelterDao implements ShelterDao {
         this(new LinkedList<Shelter>());
     }
 
-    public InMemoryShelterDao(List<Shelter> initialData) {
+    public InMemoryShelterDao(@NonNull List<Shelter> initialData) {
         this.data = new LinkedList<>(initialData);
     }
 
