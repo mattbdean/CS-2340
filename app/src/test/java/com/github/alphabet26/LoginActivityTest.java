@@ -9,15 +9,14 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
-import org.robolectric.TestLifecycleApplication;
+import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowApplication;
-
-import java.lang.reflect.Method;
 
 import static com.google.common.truth.Truth.assertThat;
 
 @RunWith(RobolectricTestRunner.class)
-public final class LoginActivityTest extends App implements TestLifecycleApplication {
+@Config(application = App.class)
+public final class LoginActivityTest {
     private LoginActivity activity;
 
     @Before
@@ -46,13 +45,4 @@ public final class LoginActivityTest extends App implements TestLifecycleApplica
         }
         layout.getEditText().setText(content);
     }
-
-    @Override
-    public void beforeTest(Method method) {
-        getUserDao().register(new UserRegistrationInfo("<test user>", "username", "password", UserType.USER));
-    }
-
-    // unused
-    @Override public void prepareTest(Object o) {}
-    @Override public void afterTest(Method method) {}
 }
