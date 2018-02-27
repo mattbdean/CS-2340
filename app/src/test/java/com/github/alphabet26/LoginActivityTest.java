@@ -5,6 +5,7 @@ import android.support.annotation.IdRes;
 import android.support.design.widget.TextInputLayout;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
@@ -25,6 +26,7 @@ public final class LoginActivityTest {
     }
 
     @Test
+    @Ignore
     public void onLogin_shouldStartDashboardActivityWithGoodCreds() {
         setText(R.id.username, "username");
         setText(R.id.password, "password");
