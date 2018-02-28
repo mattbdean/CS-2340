@@ -1,8 +1,16 @@
 package com.github.alphabet26;
 
 import android.app.Application;
+import android.content.res.AssetManager;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
+import com.univocity.parsers.csv.CsvParser;
+import com.univocity.parsers.csv.CsvParserSettings;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,17 +30,20 @@ public class App extends Application {
         if (BuildConfig.DEBUG) {
             this.userDao = new InMemoryUserDao();
             this.userDao.register(new UserRegistrationInfo("<testing user>", "username", "password", UserType.USER));
-
-            List<Shelter> tempShelters = new ArrayList<>();
-            tempShelters.add(new Shelter("Test", 5, 2, 100, 100, "addy", "test", Gender.MALE));
-            tempShelters.add(new Shelter("Test2", 10, 5, 100, 100, "addy", "test", Gender.FEMALE));
-
-            this.shelterDao = new InMemoryShelterDao(tempShelters);
         } else {
             // TODO replace with other implementation such as Firebase or Android's SQLite db
             this.userDao = new InMemoryUserDao();
-            this.shelterDao = new InMemoryShelterDao();
         }
+
+        List<Shelter> shelters;
+        try {
+            shelters = loadFromCsv();
+        } catch (IOException e) {
+            Log.e(App.class.getSimpleName(), "Unable to load shelters from the CSV");
+            shelters = new ArrayList<>();
+        }
+
+        this.shelterDao = new InMemoryShelterDao(shelters);
     }
 
     @NonNull public UserDao getUserDao() { return userDao; }
@@ -59,8 +70,55 @@ public class App extends Application {
 
     @NonNull public static App get() { return instance; }
 
-    private static List<Shelter> loadFromCsv(String filename) {
-        // TODO
-        return new ArrayList<>();
+    private List<Shelter> loadFromCsv() throws IOException {
+        List<Shelter> shelters;
+        InputStream in = null;
+        try {
+            in = getAssets().open("shelters.csv", AssetManager.ACCESS_BUFFER);
+            shelters = parseCsv(in);
+        } catch (IOException e) {
+            Log.e(App.class.getSimpleName(), "Unable to load shelters from CSV", e);
+            shelters = new ArrayList<>();
+        } finally {
+            if (in != null) {
+                in.close();
+            }
+        }
+
+        return shelters;
+    }
+
+    private static List<Shelter> parseCsv(InputStream in) {
+        // Get a list of String arrays. Each element in the list is a row and each element in the
+        // array is a cell.
+        CsvParserSettings settings = new CsvParserSettings();
+        settings.setHeaders("Unique Key", "Shelter Name", "Capacity", "Restrictions", "Longitude", "Latitude", "Address", "Special Notes", "Phone Number");
+        CsvParser parser = new CsvParser(settings);
+        List<String[]> rows = parser.parseAll(new InputStreamReader(in));
+
+        // Convert the parsed CSV values to Shelter objects
+        List<Shelter> shelters = new ArrayList<>(rows.size());
+        for (String[] row : rows.subList(1, rows.size())) {
+            shelters.add(new Shelter(
+                    Integer.parseInt(row[0]),
+                    row[1],
+                    row[2],
+                    row[3],
+                    Float.parseFloat(row[4]),
+                    Float.parseFloat(row[5]),
+                    row[6],
+                    row[7],
+                    row[8]
+            ));
+        }
+
+        // Try to clean up
+        try {
+            in.close();
+        } catch (IOException e) {
+            Log.e(App.class.getSimpleName(), "Unable to close CSV input stream", e);
+        }
+
+        return shelters;
     }
 }
