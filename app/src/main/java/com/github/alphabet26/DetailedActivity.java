@@ -43,7 +43,12 @@ public class DetailedActivity extends AppCompatActivity {
             }
         }
         shelterTitle.setText(shelter.getName());
-
+        String s = shelter.getLatitude() + ", " + shelter.getLongitude();
+        longAndLat.setText(s);
+        cap.setText("Capacity: " + shelter.getCapacity());
+        phoneNum.setText(shelter.getPhoneNumber());
+        address.setText(shelter.getAddress());
+        gender.setText("Allowed: " + shelter.getRestrictions());
     }
 
     public void onDone(View view) {
