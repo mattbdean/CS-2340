@@ -32,7 +32,7 @@ public final class InMemoryUserDao implements UserDao {
             }
 
             String hashed = naiveHash(info.getPlaintextPassword());
-            User newUser = new User(info, hashed);
+            User newUser = User.create(info, hashed);
             users.add(newUser);
 
             return newUser;

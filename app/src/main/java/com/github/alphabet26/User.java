@@ -1,29 +1,22 @@
 package com.github.alphabet26;
 
+import com.google.auto.value.AutoValue;
+
 import java.util.UUID;
 
-public final class User {
-    private final UUID id;
-    private final String name;
-    private final String username;
-    private final String passwordHash;
-    private final UserType userType;
+@AutoValue
+public abstract class User {
+    public abstract UUID getId();
+    public abstract String getName();
+    public abstract String getUsername();
+    public abstract String getPasswordHash();
+    public abstract UserType getUserType();
 
-    public User(UUID id, String name, String username, String passwordHash, UserType userType) {
-        this.id = id;
-        this.name = name;
-        this.username = username;
-        this.passwordHash = passwordHash;
-        this.userType = userType;
+    public static User create(UUID id, String name, String username, String passwordHash, UserType userType) {
+        return new AutoValue_User(id, name, username, passwordHash, userType);
     }
 
-    public User(UserRegistrationInfo info, String passwordHash) {
-        this(UUID.randomUUID(), info.getName(), info.getUsername(), passwordHash, info.getUserType());
+    public static User create(UserRegistrationInfo info, String passwordHash) {
+        return create(UUID.randomUUID(), info.getName(), info.getUsername(), passwordHash, info.getUserType());
     }
-
-    public UUID getId() { return id; }
-    public String getName() { return name; }
-    public String getUsername() { return username; }
-    public String getPasswordHash() { return passwordHash; }
-    public UserType getUserType() { return userType; }
 }

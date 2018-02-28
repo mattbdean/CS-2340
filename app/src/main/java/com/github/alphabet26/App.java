@@ -99,10 +99,10 @@ public class App extends Application {
         // Convert the parsed CSV values to Shelter objects
         List<Shelter> shelters = new ArrayList<>(rows.size());
         for (String[] row : rows.subList(1, rows.size())) {
-            shelters.add(new Shelter(
+            shelters.add(Shelter.create(
                     Integer.parseInt(row[0]),
                     row[1],
-                    row[2],
+                    row[2] == null ? "" : row[2],
                     row[3],
                     Float.parseFloat(row[4]),
                     Float.parseFloat(row[5]),
