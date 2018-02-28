@@ -1,5 +1,7 @@
 package com.github.alphabet26;
 
+import android.os.Parcelable;
+
 import com.google.auto.value.AutoValue;
 
 /**
@@ -8,7 +10,7 @@ import com.google.auto.value.AutoValue;
  * Created by Julianne Lefelhocz on 2/27/18.
  */
 @AutoValue
-public abstract class Shelter {
+public abstract class Shelter implements Parcelable {
     public abstract int getId();
     public abstract String getName();
     public abstract String getCapacity();

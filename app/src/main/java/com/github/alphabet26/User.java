@@ -1,11 +1,13 @@
 package com.github.alphabet26;
 
+import android.os.Parcelable;
+
 import com.google.auto.value.AutoValue;
 
 import java.util.UUID;
 
 @AutoValue
-public abstract class User {
+public abstract class User implements Parcelable {
     public abstract UUID getId();
     public abstract String getName();
     public abstract String getUsername();
