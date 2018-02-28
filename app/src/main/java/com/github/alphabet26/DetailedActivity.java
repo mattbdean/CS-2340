@@ -52,7 +52,7 @@ public class DetailedActivity extends AppCompatActivity {
     }
 
     public void onDone(View view) {
-        startActivity(new Intent(this, DashboardActivity.class));
+        finish();
     }
 
 }
