@@ -1,17 +1,23 @@
 package com.github.alphabet26;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
+
+import java.lang.ref.WeakReference;
 
 public final class DashboardActivity extends AppCompatActivity {
 
     private RecyclerView sheltersRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+    private Snackbar toast;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,9 +28,19 @@ public final class DashboardActivity extends AppCompatActivity {
         mLayoutManager = new LinearLayoutManager(this);
         sheltersRecyclerView.setLayoutManager(mLayoutManager);
 
-        mAdapter = new RecyclerAdapter(App.get().getShelterDao().find());
+        mAdapter = new RecyclerAdapter(App.get().getShelterDao().find(), new RecyclerAdapter.OnItemClickListener() {
+            @Override public void onItemClick(Shelter shelter) {
+                goToDetailed(sheltersRecyclerView);
+            }
+        });
+
         sheltersRecyclerView.setAdapter(mAdapter);
     }
+
+    public void goToDetailed(View view) {
+        startActivity(new Intent(this, DetailedActivity.class));
+    }
+
 
     public void onLogout(@Nullable View view) {
         App.get().onLogout();
