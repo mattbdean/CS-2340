@@ -30,15 +30,17 @@ public final class DashboardActivity extends AppCompatActivity {
 
         mAdapter = new RecyclerAdapter(App.get().getShelterDao().find(), new RecyclerAdapter.OnItemClickListener() {
             @Override public void onItemClick(Shelter shelter) {
-                goToDetailed(sheltersRecyclerView);
+                goToDetailed(sheltersRecyclerView, shelter);
             }
         });
 
         sheltersRecyclerView.setAdapter(mAdapter);
     }
 
-    public void goToDetailed(View view) {
-        startActivity(new Intent(this, DetailedActivity.class));
+    public void goToDetailed(View view, Shelter shelter) {
+        Intent intent = new Intent(getBaseContext(), DetailedActivity.class);
+        intent.putExtra("SHELTER", shelter.getId());
+        startActivity(intent);
     }
 
 
