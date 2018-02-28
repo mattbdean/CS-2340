@@ -39,7 +39,7 @@ public final class DashboardActivity extends AppCompatActivity {
 
     public void goToDetailed(View view, Shelter shelter) {
         Intent intent = new Intent(getBaseContext(), DetailedActivity.class);
-        intent.putExtra("SHELTER", shelter.getId());
+        intent.putExtra("SHELTER", shelter);
         startActivity(intent);
     }
 
