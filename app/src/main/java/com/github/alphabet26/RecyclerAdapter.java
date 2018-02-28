@@ -17,12 +17,12 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView mShelterName, mShelterGender, mShelterPhone;
+        public TextView mShelterName, mShelterCapacity, mShelterPhone;
 
         public ViewHolder(View v) {
             super(v);
             mShelterName = (TextView) itemView.findViewById(R.id.shelter_name);
-            mShelterGender = (TextView) itemView.findViewById(R.id.shelter_gender);
+            mShelterCapacity = (TextView) itemView.findViewById(R.id.shelter_capacity);
             mShelterPhone = (TextView) itemView.findViewById(R.id.shelter_phone);
         }
     }
@@ -48,7 +48,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     public void onBindViewHolder(ViewHolder holder, int position) {
         Shelter shelter = mShelterList.get(position);
         holder.mShelterName.setText(shelter.getName());
-        holder.mShelterGender.setText(shelter.getGender().name());
+        holder.mShelterCapacity.setText(shelter.getCapacity());
         holder.mShelterPhone.setText(shelter.getPhoneNumber());
     }
 
