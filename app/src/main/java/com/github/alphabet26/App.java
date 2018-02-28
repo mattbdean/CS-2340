@@ -107,8 +107,8 @@ public class App extends Application {
                     Float.parseFloat(row[4]),
                     Float.parseFloat(row[5]),
                     row[6],
-                    row[7],
-                    row[8]
+                    row[8],
+                    row[7]
             ));
         }
 
