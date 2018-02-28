@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.text.method.PasswordTransformationMethod;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -29,6 +30,8 @@ public final class LoginActivity extends AppCompatActivity {
 
         this.usernameField = ((TextInputLayout) findViewById(R.id.username)).getEditText();
         this.passwordField = ((TextInputLayout) findViewById(R.id.password)).getEditText();
+
+        passwordField.setTransformationMethod(new PasswordTransformationMethod());
 
         // Automatically attempt the login the user presses the "next" button on the soft keyboard
         passwordField.setOnEditorActionListener(new TextView.OnEditorActionListener() {

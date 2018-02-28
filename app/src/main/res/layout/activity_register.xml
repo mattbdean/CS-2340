@@ -55,7 +55,8 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/reg_username">
+        app:layout_constraintTop_toBottomOf="@id/reg_username"
+        android:inputType="textPassword">
 
         <android.support.design.widget.TextInputEditText
             android:layout_width="match_parent"
@@ -64,12 +65,28 @@
             android:inputType="textPassword|textVisiblePassword" />
     </android.support.design.widget.TextInputLayout>
 
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/reg_passwordV"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/reg_password"
+        android:inputType="textPassword">
+
+        <android.support.design.widget.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/reg_passwordV"
+            android:inputType="textPassword|textVisiblePassword" />
+    </android.support.design.widget.TextInputLayout>
+
     <TextView
         android:id="@+id/spinnerPrompt"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/registration_user_type"
-        app:layout_constraintTop_toBottomOf="@id/reg_password"
+        app:layout_constraintTop_toBottomOf="@id/reg_passwordV"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 

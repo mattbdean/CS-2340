@@ -3,8 +3,11 @@ package com.github.alphabet26.ui;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
+import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -22,7 +25,9 @@ public final class RegisterActivity extends AppCompatActivity {
     private EditText nameField;
     private EditText usernameField;
     private EditText passwordField;
+    private EditText vPasswordField;
     private Spinner userTypeSpinner;
+    private Snackbar failed;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +37,11 @@ public final class RegisterActivity extends AppCompatActivity {
         nameField = ((TextInputLayout) findViewById(R.id.reg_name)).getEditText();
         usernameField = ((TextInputLayout) findViewById(R.id.reg_username)).getEditText();
         passwordField = ((TextInputLayout) findViewById(R.id.reg_password)).getEditText();
+        vPasswordField = ((TextInputLayout) findViewById(R.id.reg_passwordV)).getEditText();
         userTypeSpinner = findViewById(R.id.user_type_spinner);
+
+        passwordField.setTransformationMethod(new PasswordTransformationMethod());
+        vPasswordField.setTransformationMethod(new PasswordTransformationMethod());
 
         ArrayAdapter<UserType> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, UserType.values());
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -46,7 +55,13 @@ public final class RegisterActivity extends AppCompatActivity {
                 passwordField.getText().toString(),
                 (UserType) userTypeSpinner.getSelectedItem()
         );
-        new RegisterTask(this).execute(info);
+        if (passwordField.getText().toString().equals(vPasswordField.getText().toString())) {
+            new RegisterTask(this).execute(info);
+        } else {
+            Snackbar.make(findViewById(R.id.reg_name),
+                "Passwords don't match",
+                Snackbar.LENGTH_LONG).show();
+        }
     }
 
     /**
