@@ -7,8 +7,13 @@
     android:layout_height="match_parent"
     tools:context="com.github.alphabet26.DashboardActivity">
 
-    <ListView
-        android:id="@+id/shelters_list_view"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/shelters_recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:scrollbars="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </android.support.constraint.ConstraintLayout>
