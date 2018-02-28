@@ -36,6 +36,9 @@ dependencies {
     implementation 'com.android.support:recyclerview-v7:27.0.2'
     implementation 'com.univocity:univocity-parsers:2.6.0'
 
+    provided 'com.google.auto.value:auto-value:1.5.3'
+    annotationProcessor 'com.google.auto.value:auto-value:1.5.3'
+
     testImplementation 'com.google.truth:truth:0.39'
     testImplementation 'org.robolectric:robolectric:3.7.1'
 }

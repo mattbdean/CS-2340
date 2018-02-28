@@ -19,8 +19,8 @@ public final class InMemoryShelterDaoTest {
     @Test
     public void find_shouldReturnInitialData() {
         List<Shelter> shelters = new ArrayList<>();
-        shelters.add(new Shelter(5, "Test1", "15", "none", 100, 100, "addy", "test", "(123) 456-7890"));
-        shelters.add(new Shelter(6, "Test2", "10", "none", 100, 100, "addy", "test", "(098) 765-4321"));
+        shelters.add(Shelter.create(5, "Test1", "15", "none", 100, 100, "addy", "test", "(123) 456-7890"));
+        shelters.add(Shelter.create(6, "Test2", "10", "none", 100, 100, "addy", "test", "(098) 765-4321"));
 
         dao = new InMemoryShelterDao(shelters);
 
