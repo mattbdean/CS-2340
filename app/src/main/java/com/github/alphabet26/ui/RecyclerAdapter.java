@@ -1,10 +1,13 @@
-package com.github.alphabet26;
+package com.github.alphabet26.ui;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.github.alphabet26.R;
+import com.github.alphabet26.model.Shelter;
 
 import java.util.List;
 

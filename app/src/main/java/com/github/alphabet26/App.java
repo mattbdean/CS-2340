@@ -5,6 +5,14 @@ import android.content.res.AssetManager;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import com.github.alphabet26.dao.InMemoryShelterDao;
+import com.github.alphabet26.dao.InMemoryUserDao;
+import com.github.alphabet26.dao.ShelterDao;
+import com.github.alphabet26.dao.UserDao;
+import com.github.alphabet26.model.Shelter;
+import com.github.alphabet26.model.User;
+import com.github.alphabet26.model.UserRegistrationInfo;
+import com.github.alphabet26.model.UserType;
 import com.univocity.parsers.csv.CsvParser;
 import com.univocity.parsers.csv.CsvParserSettings;
 

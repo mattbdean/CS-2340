@@ -1,4 +1,4 @@
-package com.github.alphabet26;
+package com.github.alphabet26.ui;
 
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -11,6 +11,10 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.github.alphabet26.App;
+import com.github.alphabet26.R;
+import com.github.alphabet26.model.User;
 
 import java.lang.ref.WeakReference;
 

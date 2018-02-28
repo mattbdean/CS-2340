@@ -1,4 +1,8 @@
-package com.github.alphabet26;
+package com.github.alphabet26.dao;
+
+import com.github.alphabet26.model.User;
+import com.github.alphabet26.model.UserRegistrationInfo;
+import com.github.alphabet26.model.UserType;
 
 import org.junit.Before;
 import org.junit.Test;

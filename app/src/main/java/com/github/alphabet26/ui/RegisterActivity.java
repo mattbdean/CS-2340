@@ -1,4 +1,4 @@
-package com.github.alphabet26;
+package com.github.alphabet26.ui;
 
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -9,6 +9,12 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+
+import com.github.alphabet26.App;
+import com.github.alphabet26.R;
+import com.github.alphabet26.model.User;
+import com.github.alphabet26.model.UserRegistrationInfo;
+import com.github.alphabet26.model.UserType;
 
 import java.lang.ref.WeakReference;
 

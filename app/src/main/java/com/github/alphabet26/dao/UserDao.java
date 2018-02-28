@@ -1,6 +1,9 @@
-package com.github.alphabet26;
+package com.github.alphabet26.dao;
 
 import android.support.annotation.Nullable;
+
+import com.github.alphabet26.model.User;
+import com.github.alphabet26.model.UserRegistrationInfo;
 
 import java.util.UUID;
 

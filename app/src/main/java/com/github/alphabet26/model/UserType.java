@@ -1,4 +1,4 @@
-package com.github.alphabet26;
+package com.github.alphabet26.model;
 
 /**
  * The different user types.

@@ -1,6 +1,8 @@
-package com.github.alphabet26;
+package com.github.alphabet26.dao;
 
 import android.support.annotation.NonNull;
+
+import com.github.alphabet26.model.Shelter;
 
 import java.util.LinkedList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.github.alphabet26;
+package com.github.alphabet26.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,10 +7,11 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 
-import java.lang.ref.WeakReference;
+import com.github.alphabet26.App;
+import com.github.alphabet26.R;
+import com.github.alphabet26.model.Shelter;
 
 public final class DashboardActivity extends AppCompatActivity {
 

@@ -1,4 +1,4 @@
-package com.github.alphabet26;
+package com.github.alphabet26.model;
 
 // TODO use autovalue
 public final class UserRegistrationInfo {

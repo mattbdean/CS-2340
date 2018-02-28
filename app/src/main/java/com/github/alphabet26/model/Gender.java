@@ -1,4 +1,4 @@
-package com.github.alphabet26;
+package com.github.alphabet26.model;
 
 /**
  * Stores gender in a not socially acceptable way

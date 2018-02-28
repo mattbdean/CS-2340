@@ -1,4 +1,6 @@
-package com.github.alphabet26;
+package com.github.alphabet26.dao;
+
+import com.github.alphabet26.model.Shelter;
 
 import java.util.List;
 

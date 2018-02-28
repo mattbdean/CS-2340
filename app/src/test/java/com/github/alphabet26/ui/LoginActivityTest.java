@@ -1,8 +1,13 @@
-package com.github.alphabet26;
+package com.github.alphabet26.ui;
 
 import android.content.Intent;
 import android.support.annotation.IdRes;
 import android.support.design.widget.TextInputLayout;
+
+import com.github.alphabet26.App;
+import com.github.alphabet26.R;
+import com.github.alphabet26.ui.DashboardActivity;
+import com.github.alphabet26.ui.LoginActivity;
 
 import org.junit.Before;
 import org.junit.Ignore;
