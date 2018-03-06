@@ -9,6 +9,8 @@ import com.github.alphabet26.dao.InMemoryShelterDao;
 import com.github.alphabet26.dao.InMemoryUserDao;
 import com.github.alphabet26.dao.ShelterDao;
 import com.github.alphabet26.dao.UserDao;
+import com.github.alphabet26.model.AgeRange;
+import com.github.alphabet26.model.Gender;
 import com.github.alphabet26.model.Shelter;
 import com.github.alphabet26.model.User;
 import com.github.alphabet26.model.UserRegistrationInfo;
@@ -111,12 +113,13 @@ public class App extends Application {
                     Integer.parseInt(row[0]),
                     row[1],
                     row[2] == null ? "" : row[2],
-                    row[3],
-                    Float.parseFloat(row[4]),
+                    row[3] == null ? null : Gender.valueOf(row[3].toUpperCase()),
+                    row[4] == null ? AgeRange.ANY : AgeRange.valueOf(row[4].toUpperCase()),
                     Float.parseFloat(row[5]),
-                    row[6],
-                    row[8],
-                    row[7]
+                    Float.parseFloat(row[6]),
+                    row[7],
+                    row[9],
+                    row[8]
             ));
         }
 

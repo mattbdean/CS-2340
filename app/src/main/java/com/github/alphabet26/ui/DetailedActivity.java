@@ -47,7 +47,9 @@ public class DetailedActivity extends AppCompatActivity {
         cap.setText("Capacity: " + shelter.getCapacity());
         phoneNum.setText(shelter.getPhoneNumber());
         address.setText(shelter.getAddress());
-        gender.setText("Allowed: " + shelter.getRestrictions());
+
+        String genderStr = shelter.getGender() == null ? "Any" : shelter.getGender().name().toLowerCase();
+        gender.setText("Allowed: " + genderStr);
     }
 
     @Override
