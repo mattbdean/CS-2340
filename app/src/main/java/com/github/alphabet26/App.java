@@ -113,7 +113,7 @@ public class App extends Application {
                     Integer.parseInt(row[0]),
                     row[1],
                     row[2] == null ? "" : row[2],
-                    row[3] == null ? null : Gender.valueOf(row[3].toUpperCase()),
+                    row[3] == null ? Gender.ANY : Gender.valueOf(row[3].toUpperCase()),
                     row[4] == null ? AgeRange.ANY : AgeRange.valueOf(row[4].toUpperCase()),
                     Float.parseFloat(row[5]),
                     Float.parseFloat(row[6]),
