@@ -20,7 +20,9 @@ public interface ShelterDao {
     /**
      * Searches for Shelters. If all parameters are null, this method functions the same way as
      * {@link #find}. The gender and age range parameters must match exactly. How the shelter name
-     * parameter is up to the individual implementation.
+     * parameter is up to the individual implementation. To exclude gender matching, pass null to
+     * `gender`. Both {@link AgeRange#ANY} and `null` provide the same functionality for age range
+     * filtering.
      */
     List<Shelter> search(@Nullable String shelterName, @Nullable Gender gender, @Nullable AgeRange ageRange);
 }

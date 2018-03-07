@@ -1,7 +1,6 @@
 package com.github.alphabet26.model;
 
 import android.os.Parcelable;
-import android.support.annotation.Nullable;
 
 import com.google.auto.value.AutoValue;
 
@@ -14,7 +13,7 @@ public abstract class Shelter implements Parcelable {
     public abstract int getId();
     public abstract String getName();
     public abstract String getCapacity();
-    @Nullable public abstract Gender getGender();
+    public abstract Gender getGender();
     public abstract AgeRange getAgeRange();
     public abstract float getLongitude();
     public abstract float getLatitude();
