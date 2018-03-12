@@ -8,7 +8,6 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.text.method.PasswordTransformationMethod;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 
@@ -40,10 +39,6 @@ public final class RegisterActivity extends AppCompatActivity {
 
         passwordField.setTransformationMethod(new PasswordTransformationMethod());
         vPasswordField.setTransformationMethod(new PasswordTransformationMethod());
-
-        ArrayAdapter<UserType> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, UserType.values());
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        userTypeSpinner.setAdapter(adapter);
     }
 
     public void onRegister(View view) {
