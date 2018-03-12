@@ -57,10 +57,8 @@ public final class DashboardActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
         switch (item.getItemId()) {
-            case R.id.home:
-                return true;
             case R.id.search:
-                //goto search
+                startActivity(new Intent(this, SearchQueryActivity.class));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
