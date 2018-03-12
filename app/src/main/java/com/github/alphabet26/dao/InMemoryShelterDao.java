@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 
 import com.github.alphabet26.model.AgeRange;
 import com.github.alphabet26.model.Gender;
+import com.github.alphabet26.model.SearchRequest;
 import com.github.alphabet26.model.Shelter;
 
 import java.util.ArrayList;
@@ -29,6 +30,18 @@ public final class InMemoryShelterDao implements ShelterDao {
 
     @Override
     public List<Shelter> search(@Nullable String shelterName, @Nullable Gender gender, @Nullable AgeRange ageRange) {
+        return search(SearchRequest.create(shelterName, gender, ageRange));
+    }
+
+    @Override
+    public List<Shelter> search(@NonNull SearchRequest req) {
+        if (req == null)
+            throw new IllegalArgumentException("req == null");
+
+        String shelterName = req.getName();
+        Gender gender = req.getGender();
+        AgeRange ageRange = req.getAgeRange();
+
         List<Shelter> allShelters = find();
 
         List<Shelter> filtered = new ArrayList<>();

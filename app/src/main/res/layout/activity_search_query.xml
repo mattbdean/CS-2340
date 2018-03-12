@@ -31,7 +31,7 @@
         android:layout_height="wrap_content" />
 
     <com.github.alphabet26.ui.EnumSpinner
-        android:id="@+id/enumSpinner"
+        android:id="@+id/ageRangeSpinner"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:enumClass="com.github.alphabet26.model.AgeRange"
@@ -43,7 +43,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/search"
-        app:layout_constraintTop_toBottomOf="@id/enumSpinner"
+        app:layout_constraintTop_toBottomOf="@id/ageRangeSpinner"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:onClick="onSearch" />

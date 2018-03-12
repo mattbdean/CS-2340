@@ -59,6 +59,13 @@ public final class InMemoryShelterDaoTest {
         assertThat(dao.find()).isNotSameAs(testShelters);
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void search_shouldNotAcceptNullSearchRequests() {
+        //noinspection ConstantConditions
+        dao = new InMemoryShelterDao();
+        dao.search(null);
+    }
+
     @Test
     public void search_shouldReturnEverythingWhenGivenNoFilters() {
         dao = new InMemoryShelterDao(testShelters);

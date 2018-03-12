@@ -1,6 +1,7 @@
 package com.github.alphabet26.ui;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -12,30 +13,37 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.github.alphabet26.App;
 import com.github.alphabet26.R;
+import com.github.alphabet26.dao.ShelterDao;
+import com.github.alphabet26.model.SearchRequest;
 import com.github.alphabet26.model.Shelter;
 
+import java.lang.ref.WeakReference;
+import java.util.ArrayList;
 import java.util.List;
 
 public final class DashboardActivity extends AppCompatActivity {
+    static final String PARAM_SEARCH_REQ = "searchRequest";
 
-    private RecyclerView sheltersRecyclerView;
-    private RecyclerView.Adapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
+    private ProgressBar progressBar;
+    private RecyclerAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
-        sheltersRecyclerView = findViewById(R.id.shelters_recycler_view);
 
-        mLayoutManager = new LinearLayoutManager(this);
-        sheltersRecyclerView.setLayoutManager(mLayoutManager);
+        progressBar = findViewById(R.id.progressBar);
+        RecyclerView recyclerView = findViewById(R.id.shelters_recycler_view);
 
-        mAdapter = new RecyclerAdapter(App.get().getShelterDao().find(), new RecyclerAdapter.OnItemClickListener() {
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+
+        adapter = new RecyclerAdapter(new RecyclerAdapter.OnItemClickListener() {
             @Override public void onItemClick(Shelter shelter) {
                 Intent intent = new Intent(getBaseContext(), DetailedActivity.class);
                 intent.putExtra("SHELTER", shelter);
@@ -43,7 +51,10 @@ public final class DashboardActivity extends AppCompatActivity {
             }
         });
 
-        sheltersRecyclerView.setAdapter(mAdapter);
+        recyclerView.setAdapter(adapter);
+
+        SearchRequest req = getIntent().getParcelableExtra(PARAM_SEARCH_REQ);
+        new SearchTask(this).execute(req);
     }
 
     @Override
@@ -85,15 +96,14 @@ public final class DashboardActivity extends AppCompatActivity {
         private final OnItemClickListener listener;
 
         // adapter constructor
-        public RecyclerAdapter(List<Shelter> shelterList, OnItemClickListener listener) {
+        public RecyclerAdapter(OnItemClickListener listener) {
             this.listener = listener;
-            mShelterList = shelterList;
+            mShelterList = new ArrayList<>();
         }
 
         // Create new views (invoked by the layout manager)
         @Override
-        public ViewHolder onCreateViewHolder(ViewGroup parent,
-                                                             int viewType) {
+        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             // create a new view
             View v = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.shelter_list_row, parent, false);
@@ -114,6 +124,11 @@ public final class DashboardActivity extends AppCompatActivity {
         @Override
         public int getItemCount() {
             return mShelterList.size();
+        }
+
+        public void setShelters(List<Shelter> shelters) {
+            this.mShelterList = shelters;
+            notifyDataSetChanged();
         }
     }
 
@@ -136,4 +151,39 @@ public final class DashboardActivity extends AppCompatActivity {
         }
     }
 
+    private static final class SearchTask extends AsyncTask<SearchRequest, Void, List<Shelter>> {
+        private WeakReference<DashboardActivity> activity;
+
+        public SearchTask(DashboardActivity activity) {
+            this.activity = new WeakReference<>(activity);
+        }
+
+        @Override
+        protected void onPreExecute() {
+            if (activity.get() != null) {
+                activity.get().progressBar.setVisibility(View.VISIBLE);
+            }
+        }
+
+        @Override
+        protected List<Shelter> doInBackground(SearchRequest... searchRequests) {
+            ShelterDao shelterDao = App.get().getShelterDao();
+
+            if (searchRequests.length < 0 || searchRequests[0] == null) {
+                return shelterDao.find();
+            } else {
+                return shelterDao.search(searchRequests[0]);
+            }
+        }
+
+        @Override
+        protected void onPostExecute(List<Shelter> shelters) {
+            DashboardActivity activity = this.activity.get();
+
+            if (activity != null) {
+                activity.progressBar.setVisibility(View.GONE);
+                activity.adapter.setShelters(shelters);
+            }
+        }
+    }
 }
