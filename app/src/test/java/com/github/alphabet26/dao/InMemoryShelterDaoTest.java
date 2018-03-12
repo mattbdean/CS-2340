@@ -23,8 +23,8 @@ public final class InMemoryShelterDaoTest {
         List<Shelter> shelters = new ArrayList<>();
 
         // Generate shelters with all combinations of Gender and AgeRage
+        int shelterCounter = 0;
         for (int i = 0; i < NUM_DUPLICATES; i++) {
-            int shelterCounter = 0;
             int genderCounter = 0;
             int ageRangeCounter = 0;
 
@@ -32,7 +32,7 @@ public final class InMemoryShelterDaoTest {
                 Gender g = Gender.values()[genderCounter];
                 AgeRange r = AgeRange.values()[ageRangeCounter];
 
-                shelters.add(Shelter.create(shelterCounter++, "Shelter " + i, "<capacity>", g, r, 0, 0, "<address>", "<phone #>", "<notes>"));
+                shelters.add(Shelter.create(shelterCounter, "Shelter " + shelterCounter++, "<capacity>", g, r, 0, 0, "<address>", "<phone #>", "<notes>"));
 
                 if (++genderCounter >= Gender.values().length) {
                     genderCounter = 0;
@@ -71,6 +71,9 @@ public final class InMemoryShelterDaoTest {
         dao = new InMemoryShelterDao(testShelters);
         // All shelters are named "Shelter X"
         assertThat(dao.search("shel", null, null)).isEqualTo(dao.find());
+
+        // Only 1 shelter should have a "12" in it
+        assertThat(dao.search("12", null, null)).hasSize(1);
     }
 
     @Test

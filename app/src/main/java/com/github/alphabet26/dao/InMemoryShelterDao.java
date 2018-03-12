@@ -33,9 +33,9 @@ public final class InMemoryShelterDao implements ShelterDao {
 
         List<Shelter> filtered = new ArrayList<>();
         for (Shelter s : allShelters) {
-            // Ignore shelterName if it's null, otherwise the shelter's name must start with
+            // Ignore shelterName if it's null, otherwise the shelter's name must contain
             // shelterName (ignoring case)
-            boolean nameMatches = shelterName == null || s.getName().toLowerCase().startsWith(shelterName.toLowerCase());
+            boolean nameMatches = shelterName == null || s.getName().toLowerCase().contains(shelterName.toLowerCase());
 
             // For AgeRange and Gender, ignore if they're null or equal to ANY
             boolean ageRangeMatches = ageRange == null || ageRange == AgeRange.ANY || ageRange == s.getAgeRange();
