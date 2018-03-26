@@ -2,6 +2,8 @@ package com.github.alphabet26.dao;
 
 import android.support.annotation.Nullable;
 
+import com.github.alphabet26.model.BedClaim;
+import com.github.alphabet26.model.Shelter;
 import com.github.alphabet26.model.User;
 import com.github.alphabet26.model.UserRegistrationInfo;
 
@@ -55,6 +57,52 @@ public final class InMemoryUserDao implements UserDao {
         }
 
         return null;
+    }
+
+    @Override
+    public BedClaim claimBeds(ShelterDao shelterDao, UUID userId, int shelterId, int beds) {
+        // Do non-resource intensive checks first
+        if (beds <= 0)
+            throw new IllegalArgumentException("Must request at least one bed");
+
+        Shelter shelter = shelterDao.pluck(shelterId);
+        // Make sure the shelter ID is valid
+        if (shelter == null)
+            throw new IllegalArgumentException("No known Shelter with ID " + shelterId);
+
+        // Make sure we have enough beds
+        if (shelter.getAvailableBeds() < beds)
+            throw new IllegalArgumentException("Not enough beds at Shelter with ID " + shelterId);
+
+        // Make sure the user ID is valid
+        User user = find(userId);
+        if (user == null)
+            throw new IllegalArgumentException("No known User with ID " + userId);
+
+        // ...and that it doesn't have a current bed claim
+        if (user.getCurrentClaim() != null)
+            throw new IllegalArgumentException("This user already has a BedClaim with shelter " +
+                user.getCurrentClaim().getShelterId());
+
+        // Update the user and shelter with the new claim
+        BedClaim claim = BedClaim.create(shelterId, beds);
+        updateUser(user.withClaim(claim));
+        shelterDao.update(shelter.withAvailableBeds(shelter.getAvailableBeds() - beds));
+
+        return claim;
+    }
+
+    @Nullable private User updateUser(User newUser) {
+        User previousInfo = null;
+
+        for (int i = 0; i < users.size(); i++) {
+            if (newUser.getId().equals(users.get(i).getId())) {
+                previousInfo = users.set(i, newUser);
+                break;
+            }
+        }
+
+        return previousInfo;
     }
 
     /**

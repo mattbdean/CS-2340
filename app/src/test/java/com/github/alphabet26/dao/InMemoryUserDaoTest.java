@@ -1,5 +1,7 @@
 package com.github.alphabet26.dao;
 
+import com.github.alphabet26.model.BedClaim;
+import com.github.alphabet26.model.Shelter;
 import com.github.alphabet26.model.User;
 import com.github.alphabet26.model.UserRegistrationInfo;
 import com.github.alphabet26.model.UserType;
@@ -7,22 +9,32 @@ import com.github.alphabet26.model.UserType;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.List;
 import java.util.UUID;
 
 import static com.google.common.truth.Truth.assertThat;
 import static org.junit.Assert.fail;
 
 public class InMemoryUserDaoTest {
+    /**
+     * A UserRegistrationInfo object to use when you don't really care about the particulars of the
+     * user, rather that a user is to be registered.
+     */
+    private static final UserRegistrationInfo REG_INFO =
+        new UserRegistrationInfo("Name", "username", "password", UserType.USER);
+
     private InMemoryUserDao dao;
+    private ShelterDao shelterDao;
 
     @Before
     public void setUp() {
         dao = new InMemoryUserDao();
+        shelterDao = new InMemoryShelterDao(InMemoryShelterDaoTest.createTestShelters());
     }
 
     @Test
     public void register_shouldReturnTheIdOfTheNewUser() {
-        User result = dao.register(new UserRegistrationInfo("Name", "username", "password", UserType.USER));
+        User result = dao.register(REG_INFO);
         assertThat(result).isNotNull();
     }
 
@@ -79,9 +91,67 @@ public class InMemoryUserDaoTest {
     @Test
     public void login_shouldReturnUserInfoOnSuccess() {
         String username = "username", password = "password";
-        User newUser = dao.register(
-                new UserRegistrationInfo("test user", username, password, UserType.USER));
-
+        User newUser = dao.register(REG_INFO);
         assertThat(dao.login(username, password)).isEqualTo(newUser);
+    }
+
+    @Test
+    public void claimBeds_shouldUpdateTheUserAndShelterModelOnSuccess() {
+        List<Shelter> allShelters = shelterDao.find();
+        Shelter beforeShelter = allShelters.get(allShelters.size() - 1);
+
+        User beforeUser = dao.register(REG_INFO);
+        assertThat(beforeUser.getCurrentClaim()).isNull();
+
+        final int beds = 3;
+        final BedClaim expectedClaim = BedClaim.create(beforeShelter.getId(), beds);
+
+        // Make sure the returned claim is what we expected it to be
+        BedClaim claim = dao.claimBeds(shelterDao, beforeUser.getId(), beforeShelter.getId(), beds);
+        assertThat(claim).isEqualTo(expectedClaim);
+
+        // Make sure things were updated in the model
+        User afterUser = dao.find(beforeUser.getId());
+        assertThat(afterUser).isNotNull();
+        assertThat(afterUser.getCurrentClaim()).isEqualTo(expectedClaim);
+
+        Shelter afterShelter = shelterDao.pluck(beforeShelter.getId());
+        assertThat(afterShelter).isNotNull();
+        assertThat(afterShelter.getAvailableBeds()).isEqualTo(beforeShelter.getAvailableBeds() - beds);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void claimBeds_shouldThrowWhenUserIdIsNotValid() {
+        dao.claimBeds(shelterDao, UUID.randomUUID(), shelterDao.find().get(3).getId(), 1);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void claimBeds_shouldThrowWhenShelterIdIsNotValid() {
+        // Use shelterDao.find().size() because there are N shelters whose IDs range from 0 to N - 1
+        dao.claimBeds(shelterDao, dao.register(REG_INFO).getId(), shelterDao.find().size(), 1);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void claimBeds_shouldThrowWhenShelterDoesNotHaveEnoughBeds() {
+        // In our test data, each shelter has the same number of available beds as its ID, so
+        // shelter 0 has 0 beds left.
+        dao.claimBeds(shelterDao, dao.register(REG_INFO).getId(), shelterDao.find().get(0).getId(), 1);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void claimBeds_shouldThrowWhenUserAlreadyHasClaim() {
+        UUID userId = dao.register(REG_INFO).getId();
+        int shelterId = shelterDao.find().get(3).getId();
+
+        // Make the initial claim, since user has non already, this should not be an issue
+        dao.claimBeds(shelterDao, userId, shelterId, 1);
+
+        // This call should throw the exception because the user already has a claim
+        dao.claimBeds(shelterDao, userId, shelterId, 1);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void claimBeds_shouldThrowWhenBedsIsNotPositive() {
+        dao.claimBeds(shelterDao, dao.register(REG_INFO).getId(), shelterDao.find().get(0).getId(), 0);
     }
 }

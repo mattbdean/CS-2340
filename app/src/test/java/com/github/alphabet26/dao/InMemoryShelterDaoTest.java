@@ -4,7 +4,7 @@ import com.github.alphabet26.model.AgeRange;
 import com.github.alphabet26.model.Gender;
 import com.github.alphabet26.model.Shelter;
 
-import org.junit.BeforeClass;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -13,35 +13,14 @@ import java.util.List;
 import static com.google.common.truth.Truth.assertThat;
 
 public final class InMemoryShelterDaoTest {
+    private static final int NUM_DUPLICATES = 2;
     private InMemoryShelterDao dao;
 
-    private static List<Shelter> testShelters;
-    private static final int NUM_DUPLICATES = 2;
+    private List<Shelter> testShelters;
 
-    @BeforeClass
-    public static void setUpClass() {
-        List<Shelter> shelters = new ArrayList<>();
-
-        // Generate shelters with all combinations of Gender and AgeRage
-        int shelterCounter = 0;
-        for (int i = 0; i < NUM_DUPLICATES; i++) {
-            int genderCounter = 0;
-            int ageRangeCounter = 0;
-
-            while (ageRangeCounter < AgeRange.values().length) {
-                Gender g = Gender.values()[genderCounter];
-                AgeRange r = AgeRange.values()[ageRangeCounter];
-
-                shelters.add(Shelter.create(shelterCounter, "Shelter " + shelterCounter++, "<capacity>", g, r, 0, 0, "<address>", "<phone #>", "<notes>"));
-
-                if (++genderCounter >= Gender.values().length) {
-                    genderCounter = 0;
-                    ageRangeCounter++;
-                }
-            }
-        }
-
-        testShelters = shelters;
+    @Before
+    public void setUp() {
+        testShelters = createTestShelters(NUM_DUPLICATES);
     }
 
     @Test
@@ -119,5 +98,61 @@ public final class InMemoryShelterDaoTest {
         // There are exactly NUM_DUPLICATES shelters that restrict gender to male and age range to
         // children
         assertThat(dao.search("shelter ", Gender.MALE, AgeRange.CHILDREN)).hasSize(NUM_DUPLICATES);
+    }
+
+    @Test
+    public void pick_shouldReturnOnlyTheShelterWithTheGivenId() {
+        dao = new InMemoryShelterDao(testShelters);
+        for (int i = 0; i < testShelters.size(); i++) {
+            assertThat(dao.pluck(i)).isNotNull();
+        }
+    }
+
+    @Test
+    public void pluck_shouldReturnNullGivenBadId() {
+        dao = new InMemoryShelterDao();
+        for (int i = 0; i < 10; i++) {
+            // throwing random constants out there. there's no data in the dao so it shouldn't
+            // matter anyway
+            assertThat(dao.pluck(i)).isNull();
+        }
+    }
+
+    /** Equivalent to {@code createTestShelters(1)} */
+    static List<Shelter> createTestShelters() { return createTestShelters(1); }
+
+    /**
+     * Creates a List of Shelters where each shelter has a unique AgeRange and Gender. Shelters are
+     * named Shelter 0, Shelter 1, and so on. Other features like capacity and address are the same
+     * for every Shelter. The number of available beds is equal to its ID.
+     * @param numDuplicateFeatures The amount of Shelters with a specific AgeRange/Gender
+     *                             combination.
+     */
+    static List<Shelter> createTestShelters(int numDuplicateFeatures) {
+        List<Shelter> shelters = new ArrayList<>();
+
+        // Generate shelters with all combinations of Gender and AgeRage
+        int shelterCounter = 0;
+        for (int i = 0; i < numDuplicateFeatures; i++) {
+            int genderCounter = 0;
+            int ageRangeCounter = 0;
+
+            while (ageRangeCounter < AgeRange.values().length) {
+                Gender g = Gender.values()[genderCounter];
+                AgeRange r = AgeRange.values()[ageRangeCounter];
+
+                shelters.add(Shelter.create(shelterCounter, "Shelter " + shelterCounter,
+                    "<capacity>", g, r, 0, 0, "<address>", "<phone #>", "<notes>", shelterCounter));
+
+                shelterCounter++;
+
+                if (++genderCounter >= Gender.values().length) {
+                    genderCounter = 0;
+                    ageRangeCounter++;
+                }
+            }
+        }
+
+        return shelters;
     }
 }

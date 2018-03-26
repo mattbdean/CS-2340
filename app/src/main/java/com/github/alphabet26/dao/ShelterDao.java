@@ -19,6 +19,9 @@ public interface ShelterDao {
     /** Finds a list of Shelters */
     List<Shelter> find();
 
+    /** Attempts to find a Shelter by its ID. Returns null if no shelter could be found */
+    @Nullable Shelter pluck(int id);
+
     /**
      * Searches for Shelters. If all parameters are null, this method functions the same way as
      * {@link #find}. The gender and age range parameters must match exactly. How the shelter name
@@ -33,4 +36,6 @@ public interface ShelterDao {
      * {@link #search(SearchRequest)}.
      */
     List<Shelter> search(@Nullable String shelterName, @Nullable Gender gender, @Nullable AgeRange ageRange);
+
+    @Nullable Shelter update(Shelter newInfo);
 }

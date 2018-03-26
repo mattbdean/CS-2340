@@ -62,4 +62,31 @@ public final class InMemoryShelterDao implements ShelterDao {
 
         return filtered;
     }
+
+    @Override
+    @Nullable
+    public Shelter update(Shelter newShelter) {
+        Shelter previousInfo = null;
+
+        for (int i = 0; i < data.size(); i++) {
+            if (newShelter.getId() == data.get(i).getId()) {
+                previousInfo = data.set(i, newShelter);
+                break;
+            }
+        }
+
+        return previousInfo;
+    }
+
+    @Nullable
+    @Override
+    public Shelter pluck(int id) {
+        for (Shelter s : data) {
+            if (s.getId() == id) {
+                return s;
+            }
+        }
+
+        return null;
+    }
 }

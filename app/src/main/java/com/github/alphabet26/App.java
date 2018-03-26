@@ -119,7 +119,8 @@ public class App extends Application {
                     Float.parseFloat(row[6]),
                     row[7],
                     row[9],
-                    row[8]
+                    row[8],
+                    Integer.parseInt(row[10])
             ));
         }
 

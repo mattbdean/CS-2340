@@ -2,6 +2,7 @@ package com.github.alphabet26.dao;
 
 import android.support.annotation.Nullable;
 
+import com.github.alphabet26.model.BedClaim;
 import com.github.alphabet26.model.User;
 import com.github.alphabet26.model.UserRegistrationInfo;
 
@@ -25,4 +26,15 @@ public interface UserDao {
      * username/password combination is correct. Returns null otherwise.
      */
     @Nullable User login(String username, String password);
+
+    /**
+     * Attempts to claim a bed for a user with the specified ID
+     *
+     * @throws IllegalArgumentException If either the user ID or shelter ID is not valid, if the
+     * shelter doesn't have enough beds, if the number of requested beds is not positive, or if the
+     * user already has a claim on another bed.
+     *
+     * @return The user's new BedClaim
+     */
+    BedClaim claimBeds(ShelterDao shelterDao, UUID userId, int shelterId, int beds);
 }
