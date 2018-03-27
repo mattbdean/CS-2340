@@ -34,13 +34,6 @@ public class DetailedActivity extends AppCompatActivity {
         address = findViewById(R.id.address);
         gender = findViewById(R.id.gender);
 
-//        List<Shelter> list = App.get().getShelterDao().find();
-//        Shelter shelter = list.get(0);
-//        for (Shelter shelter2 : list) {
-//            if (shelter2.getId() == id) {
-//                shelter = shelter2;
-//            }
-//        }
         shelterTitle.setText(shelter.getName());
         String s = shelter.getLatitude() + ", " + shelter.getLongitude();
         longAndLat.setText(s);
