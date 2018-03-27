@@ -110,7 +110,7 @@ public final class InMemoryShelterDaoTest {
                 AgeRange r = AgeRange.values()[ageRangeCounter];
 
                 shelters.add(Shelter.create(shelterCounter, "Shelter " + shelterCounter,
-                    "<capacity>", g, r, 0, 0, "<address>", "<phone #>", "<notes>", shelterCounter));
+                    69, g, r, 0, 0, "<address>", "<phone #>", "<notes>", shelterCounter));
 
                 shelterCounter++;
 
