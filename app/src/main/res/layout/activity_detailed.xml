@@ -63,7 +63,7 @@
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textSize="18sp"
-        app:layout_constraintTop_toBottomOf="@id/cancellation"
+        app:layout_constraintTop_toBottomOf="@id/gender"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
 
@@ -73,7 +73,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
         android:text="@string/doneButton"
-        app:layout_constraintTop_toBottomOf="@id/capacity"
+        app:layout_constraintTop_toBottomOf="@id/cancellation"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:onClick="onDone"/>
@@ -125,7 +125,7 @@
         android:hint="Number of beds"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gender" />
+        app:layout_constraintTop_toBottomOf="@+id/capacity" />
 
     <Button
         android:id="@+id/cancellation"
