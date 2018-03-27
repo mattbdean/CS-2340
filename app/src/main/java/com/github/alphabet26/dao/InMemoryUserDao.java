@@ -10,27 +10,25 @@ import com.github.alphabet26.model.UserRegistrationInfo;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.ArrayList;
 import java.util.UUID;
 
 /**
  * Stores all Users in memory. Stores passwords as strings hashed with SHA-256 and no salt. Mostly
  * for testing purposes.
  */
-public final class InMemoryUserDao implements UserDao {
+public final class InMemoryUserDao extends InMemoryDao<UUID, User> implements UserDao {
     private final Object lock = new Object();
-    private List<User> users;
 
     public InMemoryUserDao() {
-        this.users = new LinkedList<>();
+        super(new ArrayList<User>());
     }
 
     @Override
     public User register(UserRegistrationInfo info) {
         // Runs in linear time but that's fine for now
         synchronized (lock) {
-            for (User u : users) {
+            for (User u : data) {
                 if (u.getUsername().equals(info.getUsername())) {
                     throw new IllegalArgumentException("Username already registered: " + u.getUsername());
                 }
@@ -38,7 +36,7 @@ public final class InMemoryUserDao implements UserDao {
 
             String hashed = naiveHash(info.getPlaintextPassword());
             User newUser = User.create(info, hashed);
-            users.add(newUser);
+            data.add(newUser);
 
             return newUser;
         }
@@ -49,7 +47,7 @@ public final class InMemoryUserDao implements UserDao {
         String hash = naiveHash(password);
 
         synchronized (lock) {
-            for (User u : users) {
+            for (User u : data) {
                 if (u.getUsername().equals(username) && u.getPasswordHash().equals(hash)) {
                     return u;
                 }
@@ -65,7 +63,7 @@ public final class InMemoryUserDao implements UserDao {
         if (beds <= 0)
             throw new IllegalArgumentException("Must request at least one bed");
 
-        Shelter shelter = shelterDao.pluck(shelterId);
+        Shelter shelter = shelterDao.find(shelterId);
         // Make sure the shelter ID is valid
         if (shelter == null)
             throw new IllegalArgumentException("No known Shelter with ID " + shelterId);
@@ -86,7 +84,7 @@ public final class InMemoryUserDao implements UserDao {
 
         // Update the user and shelter with the new claim
         BedClaim claim = BedClaim.create(shelterId, beds);
-        updateUser(user.withClaim(claim));
+        update(user.withClaim(claim));
         shelterDao.update(shelter.withAvailableBeds(shelter.getAvailableBeds() - beds));
 
         return claim;
@@ -103,7 +101,7 @@ public final class InMemoryUserDao implements UserDao {
             // nothing to do
             return;
 
-        Shelter shelter = shelterDao.pluck(user.getCurrentClaim().getShelterId());
+        Shelter shelter = shelterDao.find(user.getCurrentClaim().getShelterId());
         if (shelter == null)
             throw new IllegalArgumentException("BedClaim listed invalid shelter ID: " + user.getCurrentClaim().getShelterId());
 
@@ -114,9 +112,9 @@ public final class InMemoryUserDao implements UserDao {
     @Nullable private User updateUser(User newUser) {
         User previousInfo = null;
 
-        for (int i = 0; i < users.size(); i++) {
-            if (newUser.getId().equals(users.get(i).getId())) {
-                previousInfo = users.set(i, newUser);
+        for (int i = 0; i < data.size(); i++) {
+            if (newUser.getId().equals(data.get(i).getId())) {
+                previousInfo = data.set(i, newUser);
                 break;
             }
         }
@@ -144,7 +142,7 @@ public final class InMemoryUserDao implements UserDao {
     @Nullable
     public User find(UUID id) {
         synchronized (lock) {
-            for (User u : users) {
+            for (User u : data) {
                 if (u.getId().equals(id)) {
                     return u;
                 }

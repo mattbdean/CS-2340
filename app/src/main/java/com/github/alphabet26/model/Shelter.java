@@ -8,8 +8,8 @@ import com.google.auto.value.AutoValue;
  * Shelter is a representation of a homeless shelter in the real world, it mainly holds information
  */
 @AutoValue
-public abstract class Shelter implements Parcelable {
-    public abstract int getId();
+public abstract class Shelter implements Model<Integer>, Parcelable {
+    @Override public abstract Integer getId();
     public abstract String getName();
     public abstract String getCapacity();
     public abstract Gender getGender();

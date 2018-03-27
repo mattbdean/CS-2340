@@ -119,7 +119,7 @@ public class DetailedActivity extends AppCompatActivity {
                 exception = e;
             }
 
-            return new ClaimResult(exception, app.getShelterDao().pluck(req.shelterId));
+            return new ClaimResult(exception, app.getShelterDao().find(req.shelterId));
         }
 
         @Override

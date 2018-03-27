@@ -170,7 +170,7 @@ public final class DashboardActivity extends AppCompatActivity {
             ShelterDao shelterDao = App.get().getShelterDao();
 
             if (searchRequests.length < 0 || searchRequests[0] == null) {
-                return shelterDao.find();
+                return shelterDao.list();
             } else {
                 return shelterDao.search(searchRequests[0]);
             }

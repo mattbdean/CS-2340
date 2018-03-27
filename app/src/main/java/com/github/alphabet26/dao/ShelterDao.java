@@ -14,17 +14,10 @@ import java.util.List;
  * Data access object for working with homeless shelters. Assume all operations perform blocking
  * I/O.
  */
-public interface ShelterDao {
-    // TODO geolocation
-    /** Finds a list of Shelters */
-    List<Shelter> find();
-
-    /** Attempts to find a Shelter by its ID. Returns null if no shelter could be found */
-    @Nullable Shelter pluck(int id);
-
+public interface ShelterDao extends Dao<Integer, Shelter> {
     /**
      * Searches for Shelters. If all parameters are null, this method functions the same way as
-     * {@link #find}. The gender and age range parameters must match exactly. How the shelter name
+     * {@link #list}. The gender and age range parameters must match exactly. How the shelter name
      * parameter is up to the individual implementation. To exclude gender matching, pass null to
      * `gender`. Both {@link AgeRange#ANY} and `null` provide the same functionality for age range
      * filtering.

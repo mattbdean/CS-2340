@@ -9,23 +9,15 @@ import com.github.alphabet26.model.SearchRequest;
 import com.github.alphabet26.model.Shelter;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
-public final class InMemoryShelterDao implements ShelterDao {
-    private final List<Shelter> data;
-
+public final class InMemoryShelterDao extends InMemoryDao<Integer, Shelter> implements ShelterDao {
     public InMemoryShelterDao() {
-        this(new LinkedList<Shelter>());
+        this(new ArrayList<Shelter>());
     }
 
     public InMemoryShelterDao(@NonNull List<Shelter> initialData) {
-        this.data = new LinkedList<>(initialData);
-    }
-
-    @Override
-    public List<Shelter> find() {
-        return data;
+        super(initialData);
     }
 
     @Override
@@ -42,7 +34,7 @@ public final class InMemoryShelterDao implements ShelterDao {
         Gender gender = req.getGender();
         AgeRange ageRange = req.getAgeRange();
 
-        List<Shelter> allShelters = find();
+        List<Shelter> allShelters = list();
 
         List<Shelter> filtered = new ArrayList<>();
         for (Shelter s : allShelters) {
@@ -61,32 +53,5 @@ public final class InMemoryShelterDao implements ShelterDao {
         }
 
         return filtered;
-    }
-
-    @Override
-    @Nullable
-    public Shelter update(Shelter newShelter) {
-        Shelter previousInfo = null;
-
-        for (int i = 0; i < data.size(); i++) {
-            if (newShelter.getId() == data.get(i).getId()) {
-                previousInfo = data.set(i, newShelter);
-                break;
-            }
-        }
-
-        return previousInfo;
-    }
-
-    @Nullable
-    @Override
-    public Shelter pluck(int id) {
-        for (Shelter s : data) {
-            if (s.getId() == id) {
-                return s;
-            }
-        }
-
-        return null;
     }
 }

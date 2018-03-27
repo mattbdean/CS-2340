@@ -23,21 +23,6 @@ public final class InMemoryShelterDaoTest {
         testShelters = createTestShelters(NUM_DUPLICATES);
     }
 
-    @Test
-    public void find_shouldReturnEmptyListWhenGivenNoInitialData() {
-        dao = new InMemoryShelterDao();
-        assertThat(dao.find()).isEmpty();
-    }
-
-    @Test
-    public void find_shouldReturnInitialData() {
-        dao = new InMemoryShelterDao(testShelters);
-
-        // find() should return data that is equivalent to
-        assertThat(dao.find()).isEqualTo(testShelters);
-        assertThat(dao.find()).isNotSameAs(testShelters);
-    }
-
     @Test(expected = IllegalArgumentException.class)
     public void search_shouldNotAcceptNullSearchRequests() {
         //noinspection ConstantConditions
@@ -49,14 +34,14 @@ public final class InMemoryShelterDaoTest {
     public void search_shouldReturnEverythingWhenGivenNoFilters() {
         dao = new InMemoryShelterDao(testShelters);
 
-        assertThat(dao.search(null, null, null)).isEqualTo(dao.find());
+        assertThat(dao.search(null, null, null)).isEqualTo(dao.list());
     }
 
     @Test
     public void search_shouldFilterNamesStartWithIgnoreCase() {
         dao = new InMemoryShelterDao(testShelters);
         // All shelters are named "Shelter X"
-        assertThat(dao.search("shel", null, null)).isEqualTo(dao.find());
+        assertThat(dao.search("shel", null, null)).isEqualTo(dao.list());
 
         // Only 1 shelter should have a "12" in it
         assertThat(dao.search("12", null, null)).hasSize(1);
@@ -74,7 +59,7 @@ public final class InMemoryShelterDaoTest {
     @Test
     public void search_shouldNotFilterAgeRageWhenAny() {
         dao = new InMemoryShelterDao(testShelters);
-        assertThat(dao.search(null, Gender.ANY, AgeRange.ANY)).isEqualTo(dao.find());
+        assertThat(dao.search(null, Gender.ANY, AgeRange.ANY)).isEqualTo(dao.list());
     }
 
     @Test
@@ -89,7 +74,7 @@ public final class InMemoryShelterDaoTest {
     @Test
     public void search_shouldNotFilterAgeRangeWhenAny() {
         dao = new InMemoryShelterDao(testShelters);
-        assertThat(dao.search(null, null, AgeRange.ANY)).isEqualTo(dao.find());
+        assertThat(dao.search(null, null, AgeRange.ANY)).isEqualTo(dao.list());
     }
 
     @Test
@@ -100,23 +85,6 @@ public final class InMemoryShelterDaoTest {
         assertThat(dao.search("shelter ", Gender.MALE, AgeRange.CHILDREN)).hasSize(NUM_DUPLICATES);
     }
 
-    @Test
-    public void pick_shouldReturnOnlyTheShelterWithTheGivenId() {
-        dao = new InMemoryShelterDao(testShelters);
-        for (int i = 0; i < testShelters.size(); i++) {
-            assertThat(dao.pluck(i)).isNotNull();
-        }
-    }
-
-    @Test
-    public void pluck_shouldReturnNullGivenBadId() {
-        dao = new InMemoryShelterDao();
-        for (int i = 0; i < 10; i++) {
-            // throwing random constants out there. there's no data in the dao so it shouldn't
-            // matter anyway
-            assertThat(dao.pluck(i)).isNull();
-        }
-    }
 
     /** Equivalent to {@code createTestShelters(1)} */
     static List<Shelter> createTestShelters() { return createTestShelters(1); }

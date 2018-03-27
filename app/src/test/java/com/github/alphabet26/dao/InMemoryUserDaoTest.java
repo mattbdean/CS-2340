@@ -69,21 +69,6 @@ public class InMemoryUserDaoTest {
     }
 
     @Test
-    public void find_shouldReturnTheUserWithTheGivenId() {
-        User newUser = dao.register(new UserRegistrationInfo("Name", "username", "password", UserType.USER));
-        User user = dao.find(newUser.getId());
-
-        assertThat(newUser).isNotNull();
-        assertThat(user).isNotNull();
-        assertThat(newUser).isEqualTo(user);
-    }
-
-    @Test
-    public void find_shouldReturnNullWhenNoUserCouldBeFound() {
-        assertThat(dao.find(UUID.randomUUID())).isNull();
-    }
-
-    @Test
     public void login_shouldReturnNullWhenGivenInvalidCredentials() {
         assertThat(dao.login("username", "password")).isNull();
     }
@@ -97,7 +82,7 @@ public class InMemoryUserDaoTest {
 
     @Test
     public void claimBeds_shouldUpdateTheUserAndShelterModelOnSuccess() {
-        List<Shelter> allShelters = shelterDao.find();
+        List<Shelter> allShelters = shelterDao.list();
         Shelter beforeShelter = allShelters.get(allShelters.size() - 1);
 
         User beforeUser = dao.register(REG_INFO);
@@ -115,33 +100,33 @@ public class InMemoryUserDaoTest {
         assertThat(afterUser).isNotNull();
         assertThat(afterUser.getCurrentClaim()).isEqualTo(expectedClaim);
 
-        Shelter afterShelter = shelterDao.pluck(beforeShelter.getId());
+        Shelter afterShelter = shelterDao.find(beforeShelter.getId());
         assertThat(afterShelter).isNotNull();
         assertThat(afterShelter.getAvailableBeds()).isEqualTo(beforeShelter.getAvailableBeds() - beds);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void claimBeds_shouldThrowWhenUserIdIsNotValid() {
-        dao.claimBeds(shelterDao, UUID.randomUUID(), shelterDao.find().get(3).getId(), 1);
+        dao.claimBeds(shelterDao, UUID.randomUUID(), shelterDao.list().get(3).getId(), 1);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void claimBeds_shouldThrowWhenShelterIdIsNotValid() {
         // Use shelterDao.find().size() because there are N shelters whose IDs range from 0 to N - 1
-        dao.claimBeds(shelterDao, dao.register(REG_INFO).getId(), shelterDao.find().size(), 1);
+        dao.claimBeds(shelterDao, dao.register(REG_INFO).getId(), shelterDao.list().size(), 1);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void claimBeds_shouldThrowWhenShelterDoesNotHaveEnoughBeds() {
         // In our test data, each shelter has the same number of available beds as its ID, so
         // shelter 0 has 0 beds left.
-        dao.claimBeds(shelterDao, dao.register(REG_INFO).getId(), shelterDao.find().get(0).getId(), 1);
+        dao.claimBeds(shelterDao, dao.register(REG_INFO).getId(), shelterDao.list().get(0).getId(), 1);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void claimBeds_shouldThrowWhenUserAlreadyHasClaim() {
         UUID userId = dao.register(REG_INFO).getId();
-        int shelterId = shelterDao.find().get(3).getId();
+        int shelterId = shelterDao.list().get(3).getId();
 
         // Make the initial claim, since user has non already, this should not be an issue
         dao.claimBeds(shelterDao, userId, shelterId, 1);
@@ -152,6 +137,6 @@ public class InMemoryUserDaoTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void claimBeds_shouldThrowWhenBedsIsNotPositive() {
-        dao.claimBeds(shelterDao, dao.register(REG_INFO).getId(), shelterDao.find().get(0).getId(), 0);
+        dao.claimBeds(shelterDao, dao.register(REG_INFO).getId(), shelterDao.list().get(0).getId(), 0);
     }
 }

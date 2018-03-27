@@ -14,12 +14,9 @@ import java.util.UUID;
  *
  * @author Matt Dean
  */
-public interface UserDao {
+public interface UserDao extends Dao<UUID, User> {
     /** Registers a new user */
     User register(UserRegistrationInfo newUser);
-
-    /** Attempts to find a user by its unique ID */
-    User find(UUID id);
 
     /**
      * Attempts to login as the given user. Returns the details of the user if and only if the given

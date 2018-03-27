@@ -8,8 +8,8 @@ import com.google.auto.value.AutoValue;
 import java.util.UUID;
 
 @AutoValue
-public abstract class User implements Parcelable {
-    public abstract UUID getId();
+public abstract class User implements Model<UUID>, Parcelable {
+    @Override public abstract UUID getId();
     public abstract String getName();
     public abstract String getUsername();
     public abstract String getPasswordHash();
