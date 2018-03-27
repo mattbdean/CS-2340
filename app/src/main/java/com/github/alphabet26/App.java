@@ -1,7 +1,6 @@
 package com.github.alphabet26;
 
 import android.app.Application;
-import android.content.res.AssetManager;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
@@ -9,27 +8,29 @@ import com.github.alphabet26.dao.InMemoryShelterDao;
 import com.github.alphabet26.dao.InMemoryUserDao;
 import com.github.alphabet26.dao.ShelterDao;
 import com.github.alphabet26.dao.UserDao;
-import com.github.alphabet26.model.AgeRange;
-import com.github.alphabet26.model.Gender;
+import com.github.alphabet26.model.ModelAdapterFactory;
 import com.github.alphabet26.model.Shelter;
 import com.github.alphabet26.model.User;
 import com.github.alphabet26.model.UserRegistrationInfo;
 import com.github.alphabet26.model.UserType;
-import com.univocity.parsers.csv.CsvParser;
-import com.univocity.parsers.csv.CsvParserSettings;
+import com.squareup.moshi.JsonAdapter;
+import com.squareup.moshi.Moshi;
+import com.squareup.moshi.Types;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+
+import okio.Okio;
 
 public class App extends Application {
     private static App instance;
 
     private UserDao userDao;
     private ShelterDao shelterDao;
+    private Moshi moshi;
+    private JsonAdapter<List<Shelter>> shelterAdapter;
 
     private UUID activeUser;
 
@@ -46,13 +47,20 @@ public class App extends Application {
             this.userDao = new InMemoryUserDao();
         }
 
-        List<Shelter> shelters;
+        moshi = new Moshi.Builder()
+            .add(ModelAdapterFactory.create())
+            .build();
+        shelterAdapter = moshi.adapter(Types.newParameterizedType(List.class, Shelter.class));
+
+        List<Shelter> shelters = null;
         try {
-            shelters = loadFromCsv();
+            shelters = shelterAdapter.fromJson(Okio.buffer(Okio.source(getAssets().open("shelters.json"))));
         } catch (IOException e) {
             Log.e(App.class.getSimpleName(), "Unable to load shelters from the CSV");
-            shelters = new ArrayList<>();
         }
+
+        if (shelters == null)
+            shelters = new ArrayList<>();
 
         this.shelterDao = new InMemoryShelterDao(shelters);
     }
@@ -80,58 +88,4 @@ public class App extends Application {
     public void onLogout() { this.activeUser = null; }
 
     @NonNull public static App get() { return instance; }
-
-    private List<Shelter> loadFromCsv() throws IOException {
-        List<Shelter> shelters;
-        InputStream in = null;
-        try {
-            in = getAssets().open("shelters.csv", AssetManager.ACCESS_BUFFER);
-            shelters = parseCsv(in);
-        } catch (IOException e) {
-            Log.e(App.class.getSimpleName(), "Unable to load shelters from CSV", e);
-            shelters = new ArrayList<>();
-        } finally {
-            if (in != null) {
-                in.close();
-            }
-        }
-
-        return shelters;
-    }
-
-    private static List<Shelter> parseCsv(InputStream in) {
-        // Get a list of String arrays. Each element in the list is a row and each element in the
-        // array is a cell.
-        CsvParserSettings settings = new CsvParserSettings();
-        settings.setHeaders("Unique Key", "Shelter Name", "Capacity", "Restrictions", "Longitude", "Latitude", "Address", "Special Notes", "Phone Number");
-        CsvParser parser = new CsvParser(settings);
-        List<String[]> rows = parser.parseAll(new InputStreamReader(in));
-
-        // Convert the parsed CSV values to Shelter objects
-        List<Shelter> shelters = new ArrayList<>(rows.size());
-        for (String[] row : rows.subList(1, rows.size())) {
-            shelters.add(Shelter.create(
-                    Integer.parseInt(row[0]),
-                    row[1],
-                    row[2] == null ? "" : row[2],
-                    row[3] == null ? Gender.ANY : Gender.valueOf(row[3].toUpperCase()),
-                    row[4] == null ? AgeRange.ANY : AgeRange.valueOf(row[4].toUpperCase()),
-                    Float.parseFloat(row[5]),
-                    Float.parseFloat(row[6]),
-                    row[7],
-                    row[9],
-                    row[8],
-                    Integer.parseInt(row[10])
-            ));
-        }
-
-        // Try to clean up
-        try {
-            in.close();
-        } catch (IOException e) {
-            Log.e(App.class.getSimpleName(), "Unable to close CSV input stream", e);
-        }
-
-        return shelters;
-    }
 }

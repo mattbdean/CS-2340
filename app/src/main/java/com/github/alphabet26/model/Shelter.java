@@ -3,6 +3,9 @@ package com.github.alphabet26.model;
 import android.os.Parcelable;
 
 import com.google.auto.value.AutoValue;
+import com.squareup.moshi.Json;
+import com.squareup.moshi.JsonAdapter;
+import com.squareup.moshi.Moshi;
 
 /**
  * Shelter is a representation of a homeless shelter in the real world, it mainly holds information
@@ -11,18 +14,22 @@ import com.google.auto.value.AutoValue;
 public abstract class Shelter implements Model<Integer>, Parcelable {
     @Override public abstract Integer getId();
     public abstract String getName();
-    public abstract String getCapacity();
+    public abstract int getCapacity();
     public abstract Gender getGender();
     public abstract AgeRange getAgeRange();
     public abstract float getLongitude();
     public abstract float getLatitude();
     public abstract String getAddress();
     public abstract String getPhoneNumber();
-    public abstract String getSpecialNotes();
+    @Json(name = "notes") public abstract String getSpecialNotes();
     public abstract int getAvailableBeds();
 
-    public static Shelter create(int id, String name, String capacity, Gender gender, AgeRange ageRange, float longitude, float latitude, String address, String phoneNumber, String specialNotes, int availableBeds) {
+    public static Shelter create(int id, String name, int capacity, Gender gender, AgeRange ageRange, float longitude, float latitude, String address, String phoneNumber, String specialNotes, int availableBeds) {
         return new AutoValue_Shelter(id, name, capacity, gender, ageRange, longitude, latitude, address, phoneNumber, specialNotes, availableBeds);
+    }
+
+    public static JsonAdapter<Shelter> jsonAdapter(Moshi moshi) {
+        return new AutoValue_Shelter.MoshiJsonAdapter(moshi);
     }
 
     /**
