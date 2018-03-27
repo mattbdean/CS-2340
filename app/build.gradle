@@ -36,6 +36,7 @@ dependencies {
     implementation 'com.android.support:recyclerview-v7:27.1.0'
     implementation 'com.squareup.moshi:moshi:1.5.0'
 
+    implementation 'com.google.android.gms:play-services-maps:12.0.0'
     compileOnly 'com.google.auto.value:auto-value:1.5.4'
     compileOnly 'com.ryanharter.auto.value:auto-value-moshi-annotations:0.4.5'
     annotationProcessor 'com.google.auto.value:auto-value:1.5.4'

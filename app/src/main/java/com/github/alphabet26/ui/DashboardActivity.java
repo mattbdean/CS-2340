@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.NavigationView;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -32,12 +34,15 @@ public final class DashboardActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private RecyclerAdapter adapter;
 
+    private DrawerLayout drawerLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
 
         progressBar = findViewById(R.id.progressBar);
+        drawerLayout = findViewById(R.id.drawer_layout);
         RecyclerView recyclerView = findViewById(R.id.shelters_recycler_view);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
@@ -52,6 +57,23 @@ public final class DashboardActivity extends AppCompatActivity {
         });
 
         recyclerView.setAdapter(adapter);
+
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(
+            new NavigationView.OnNavigationItemSelectedListener() {
+                @Override
+                public boolean onNavigationItemSelected(MenuItem menuItem) {
+                    // set item as selected to persist highlight
+                    menuItem.setChecked(true);
+                    // close drawer when item is tapped
+                    drawerLayout.closeDrawers();
+
+                    Intent intent = new Intent(getBaseContext(), MapsActivity.class);
+                    startActivity(intent);
+
+                    return true;
+                }
+            });
 
         SearchRequest req = getIntent().getParcelableExtra(PARAM_SEARCH_REQ);
         new SearchTask(this).execute(req);
