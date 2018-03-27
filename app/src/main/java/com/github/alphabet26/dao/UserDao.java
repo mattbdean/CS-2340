@@ -37,4 +37,6 @@ public interface UserDao {
      * @return The user's new BedClaim
      */
     BedClaim claimBeds(ShelterDao shelterDao, UUID userId, int shelterId, int beds);
+
+    void releaseClaim(ShelterDao shelterDao, UUID userId);
 }

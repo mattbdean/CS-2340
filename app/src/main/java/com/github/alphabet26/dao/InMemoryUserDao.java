@@ -92,6 +92,25 @@ public final class InMemoryUserDao implements UserDao {
         return claim;
     }
 
+    @Override
+    public void releaseClaim(ShelterDao shelterDao, UUID userId) {
+        User user = find(userId);
+
+        if (user == null)
+            throw new IllegalArgumentException("No user for UUID " + userId);
+
+        if (user.getCurrentClaim() == null)
+            // nothing to do
+            return;
+
+        Shelter shelter = shelterDao.pluck(user.getCurrentClaim().getShelterId());
+        if (shelter == null)
+            throw new IllegalArgumentException("BedClaim listed invalid shelter ID: " + user.getCurrentClaim().getShelterId());
+
+        updateUser(user.withClaim(null));
+        shelterDao.update(shelter.withAvailableBeds(shelter.getAvailableBeds() + user.getCurrentClaim().getBedCount()));
+    }
+
     @Nullable private User updateUser(User newUser) {
         User previousInfo = null;
 
