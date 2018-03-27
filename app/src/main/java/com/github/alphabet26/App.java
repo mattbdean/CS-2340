@@ -23,6 +23,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class App extends Application {
     private static App instance;
@@ -30,7 +31,7 @@ public class App extends Application {
     private UserDao userDao;
     private ShelterDao shelterDao;
 
-    private User activeUser;
+    private UUID activeUser;
 
     @Override
     public void onCreate() {
@@ -59,7 +60,7 @@ public class App extends Application {
     @NonNull public UserDao getUserDao() { return userDao; }
     @NonNull public ShelterDao getShelterDao() { return shelterDao; }
 
-    public User getActiveUser() {
+    public UUID getActiveUserId() {
         if (activeUser == null) {
             throw new IllegalStateException("No active user");
         }
@@ -73,7 +74,7 @@ public class App extends Application {
     }
 
     /** Updates the active user to the one provided */
-    public void onLogin(@NonNull User user) { this.activeUser = user; }
+    public void onLogin(@NonNull User user) { this.activeUser = user.getId(); }
 
     /** Removes the reference to the active user */
     public void onLogout() { this.activeUser = null; }
