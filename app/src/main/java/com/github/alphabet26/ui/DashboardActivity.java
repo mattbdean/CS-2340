@@ -31,6 +31,7 @@ import java.util.List;
 public final class DashboardActivity extends AppCompatActivity {
     static final String PARAM_SEARCH_REQ = "searchRequest";
 
+    private ArrayList<Shelter> displayedShelters;
     private ProgressBar progressBar;
     private RecyclerAdapter adapter;
 
@@ -68,7 +69,14 @@ public final class DashboardActivity extends AppCompatActivity {
                     // close drawer when item is tapped
                     drawerLayout.closeDrawers();
 
+                    // TODO (mattbdean): Right now if there are multiple menu items it will always
+                    // open the MapsActivity
+
+                    // TODO (mattbdean): If a user clicks the "Maps" option, but the SearchTask
+                    // hasn't finished we're not going to have any shelters to give the MapsActivity
+
                     Intent intent = new Intent(getBaseContext(), MapsActivity.class);
+                    intent.putParcelableArrayListExtra(MapsActivity.KEY_SHELTERS, displayedShelters);
                     startActivity(intent);
 
                     return true;
@@ -191,7 +199,7 @@ public final class DashboardActivity extends AppCompatActivity {
         protected List<Shelter> doInBackground(SearchRequest... searchRequests) {
             ShelterDao shelterDao = App.get().getShelterDao();
 
-            if (searchRequests.length < 0 || searchRequests[0] == null) {
+            if (searchRequests.length < 1 || searchRequests[0] == null) {
                 return shelterDao.list();
             } else {
                 return shelterDao.search(searchRequests[0]);
@@ -205,6 +213,7 @@ public final class DashboardActivity extends AppCompatActivity {
             if (activity != null) {
                 activity.progressBar.setVisibility(View.GONE);
                 activity.adapter.setShelters(shelters);
+                activity.displayedShelters = new ArrayList<>(shelters);
             }
         }
     }
