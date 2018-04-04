@@ -15,6 +15,10 @@ public enum UserType {
         this.value = value;
     }
 
+    /**
+     * getter method for valye
+     * @return the value
+     */
     public String getValue() { return value; }
 
     @Override

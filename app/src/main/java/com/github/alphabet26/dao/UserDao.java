@@ -15,12 +15,16 @@ import java.util.UUID;
  * @author Matt Dean
  */
 public interface UserDao extends Dao<UUID, User> {
-    /** Registers a new user */
+    /** Registers a new user
+     * @param newUser is the new user
+     */
     User register(UserRegistrationInfo newUser);
 
     /**
      * Attempts to login as the given user. Returns the details of the user if and only if the given
      * username/password combination is correct. Returns null otherwise.
+     * @param username username
+     * @param password password
      */
     @Nullable User login(String username, String password);
 
