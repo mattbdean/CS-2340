@@ -109,6 +109,7 @@ public final class DashboardActivity extends AppCompatActivity {
     public void onLogout(@Nullable View view) {
         App.get().onLogout();
         finish();
+        startActivity(new Intent(this, LoginActivity.class));
     }
 
     @Override
