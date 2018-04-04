@@ -3,14 +3,9 @@
     <string name="login_button">Login</string>
     <string name="password_hint">Password</string>
     <string name="username_hint">Username</string>
-    <string name="register_option">Don\'t have an account?
-        Register here. Or, continue as a guest.</string>
     <string name="app_logo">App Logo</string>
-    <string name="logout">Logout</string>
-    <string name="login">Login</string>
     <string name="register">Register</string>
     <string name="invalid_creds">Invalid username or password</string>
-    <string name="welcome_message">Welcome, %s</string>
     <string name="registration">Create an Account</string>
     <string name="registration_name">Name</string>
     <string name="registration_username">Username</string>
@@ -26,7 +21,6 @@
     <string name="gender">Restrictions: None</string>
     <string name="doneButton">Done</string>
     <string name="search">Search</string>
-    <string name="home">Home</string>
     <string name="title_activity_maps">Map</string>
     <string name="create_an_account">Create an Account</string>
     <string name="claim_bed">Claim a Bed</string>

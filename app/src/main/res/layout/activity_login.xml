@@ -68,7 +68,6 @@
             android:onClick="onLogin" />
 
         <Button
-            android:id="@+id/register"
             android:onClick="onRegister"
             android:textAllCaps="false"
             android:textColor="@color/colorPrimaryDark"
