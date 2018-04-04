@@ -42,7 +42,7 @@ public final class RegisterActivity extends AppCompatActivity {
     }
 
     public void onRegister(View view) {
-        UserRegistrationInfo info = new UserRegistrationInfo(
+        UserRegistrationInfo info = UserRegistrationInfo.create(
                 nameField.getText().toString(),
                 usernameField.getText().toString(),
                 passwordField.getText().toString(),
