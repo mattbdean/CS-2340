@@ -14,10 +14,10 @@
     <string name="registration_user_type">What type of account are you signing up for?</string>
     <string name="title_activity_detailed">DetailedActivity</string>
     <string name="shelterN">Shelter Name</string>
-    <string name="latandLong">Latitude and Longitude</string>
+    <string name="lat_and_long">Latitude and Longitude</string>
     <string name="cap">Capacity: 0</string>
     <string name="address">100 Ferst Dr.\n Atlanta, GA 30332</string>
-    <string name="phoneNum">(000) 000-0000</string>
+    <string name="phoneNum">(000) 000 0000</string>
     <string name="gender">Restrictions: None</string>
     <string name="doneButton">Done</string>
     <string name="search">Search</string>

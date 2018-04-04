@@ -3,6 +3,7 @@ package com.github.alphabet26.ui;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
@@ -63,7 +64,7 @@ public final class DashboardActivity extends AppCompatActivity {
         navigationView.setNavigationItemSelectedListener(
             new NavigationView.OnNavigationItemSelectedListener() {
                 @Override
-                public boolean onNavigationItemSelected(MenuItem menuItem) {
+                public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                     // set item as selected to persist highlight
                     menuItem.setChecked(true);
                     // close drawer when item is tapped
@@ -135,7 +136,7 @@ public final class DashboardActivity extends AppCompatActivity {
 
         // Create new views (invoked by the layout manager)
         @Override
-        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             // create a new view
             View v = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.shelter_list_row, parent, false);
@@ -144,7 +145,7 @@ public final class DashboardActivity extends AppCompatActivity {
 
         // Replace the contents of a view (invoked by the layout manager)
         @Override
-        public void onBindViewHolder(ViewHolder holder, int position) {
+        public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
             Shelter shelter = mShelterList.get(position);
             holder.bind(mShelterList.get(position), listener);
             holder.mShelterName.setText(shelter.getName());
