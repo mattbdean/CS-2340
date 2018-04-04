@@ -9,7 +9,9 @@ public abstract class UserRegistrationInfo {
     public abstract String getPlaintextPassword();
     public abstract UserType getUserType();
 
-    public static UserRegistrationInfo create(String newName, String newUsername, String newPlaintextPassword, UserType newUserType) {
-        return new AutoValue_UserRegistrationInfo(newName, newUsername, newPlaintextPassword, newUserType);
+    public static UserRegistrationInfo create(String newName, String newUsername,
+                                              String newPlaintextPassword, UserType newUserType) {
+        return new AutoValue_UserRegistrationInfo(newName, newUsername, newPlaintextPassword,
+            newUserType);
     }
 }

@@ -62,9 +62,11 @@ public class DetailedActivity extends AppCompatActivity {
         cap.setText(getString(R.string.capacity_status, shelter.getCapacity()));
         phoneNum.setText(shelter.getPhoneNumber());
         address.setText(shelter.getAddress());
-        availableBeds.setText(getString(R.string.available_beds_status, shelter.getAvailableBeds()));
+        availableBeds.setText(getString(
+            R.string.available_beds_status, shelter.getAvailableBeds()));
 
-        gender.setText(getString(R.string.allowed_status, shelter.getGender().name().toLowerCase()));
+        gender.setText(getString(
+            R.string.allowed_status, shelter.getGender().name().toLowerCase()));
     }
 
     @Override
@@ -90,7 +92,8 @@ public class DetailedActivity extends AppCompatActivity {
     }
 
     public void onClaim(View view) {
-        new ClaimTask(this).execute(ClaimRequest.claim(shelterId, Integer.parseInt(numBeds.getText().toString())));
+        new ClaimTask(this).execute(ClaimRequest.claim(shelterId, Integer.parseInt(
+            numBeds.getText().toString())));
     }
 
     public void onCancel(View view) {
@@ -116,7 +119,8 @@ public class DetailedActivity extends AppCompatActivity {
 
             try {
                 if (req.action == ClaimAction.CLAIM) {
-                    app.getUserDao().claimBeds(app.getShelterDao(), app.getActiveUserId(), req.shelterId, req.numBeds);
+                    app.getUserDao().claimBeds(app.getShelterDao(),
+                        app.getActiveUserId(), req.shelterId, req.numBeds);
                 } else {
                     app.getUserDao().releaseClaim(app.getShelterDao(), app.getActiveUserId());
                 }
@@ -133,7 +137,8 @@ public class DetailedActivity extends AppCompatActivity {
                 activity.get().updateView(result.newShelter);
 
                 if (result.error != null) {
-                    Snackbar.make(activity.get().address, result.error.getMessage(), Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(activity.get().address, result.error.getMessage(),
+                        Snackbar.LENGTH_LONG).show();
                 }
             }
 

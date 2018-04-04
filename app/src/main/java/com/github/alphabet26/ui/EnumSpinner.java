@@ -41,7 +41,8 @@ public final class EnumSpinner<T extends Enum<T>> extends AppCompatSpinner {
         // TODO make configurable via attributes or setter
         this.formatter = new TitleCaseEnumFormatter();
 
-        TypedArray a = context.getTheme().obtainStyledAttributes(attrs, R.styleable.EnumSpinner, 0, 0);
+        TypedArray a = context.getTheme().obtainStyledAttributes(
+            attrs, R.styleable.EnumSpinner, 0, 0);
 
         String enumClassName;
         try {
@@ -70,7 +71,8 @@ public final class EnumSpinner<T extends Enum<T>> extends AppCompatSpinner {
             formattedValues[i] = formatter.format(enumValues[i].name());
         }
 
-        setAdapter(new ArrayAdapter<>(context, android.R.layout.simple_spinner_dropdown_item, formattedValues));
+        setAdapter(new ArrayAdapter<>(
+            context, android.R.layout.simple_spinner_dropdown_item, formattedValues));
         setAdapterAllowed = false;
     }
 
@@ -113,7 +115,8 @@ public final class EnumSpinner<T extends Enum<T>> extends AppCompatSpinner {
         if (setAdapterAllowed) {
             super.setAdapter(adapter);
         } else {
-            throw new IllegalStateException("May not manually specify an adapter when given an Enum");
+            throw new IllegalStateException(
+                "May not manually specify an adapter when given an Enum");
         }
     }
 }

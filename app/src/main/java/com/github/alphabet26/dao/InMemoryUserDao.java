@@ -30,7 +30,8 @@ public final class InMemoryUserDao extends InMemoryDao<UUID, User> implements Us
         synchronized (lock) {
             for (User u : data) {
                 if (u.getUsername().equals(info.getUsername())) {
-                    throw new IllegalArgumentException("Username already registered: " + u.getUsername());
+                    throw new IllegalArgumentException(
+                        "Username already registered: " + u.getUsername());
                 }
             }
 
@@ -103,10 +104,12 @@ public final class InMemoryUserDao extends InMemoryDao<UUID, User> implements Us
 
         Shelter shelter = shelterDao.find(user.getCurrentClaim().getShelterId());
         if (shelter == null)
-            throw new IllegalArgumentException("BedClaim listed invalid shelter ID: " + user.getCurrentClaim().getShelterId());
+            throw new IllegalArgumentException(
+                "BedClaim listed invalid shelter ID: " + user.getCurrentClaim().getShelterId());
 
         updateUser(user.withClaim(null));
-        shelterDao.update(shelter.withAvailableBeds(shelter.getAvailableBeds() + user.getCurrentClaim().getBedCount()));
+        shelterDao.update(shelter.withAvailableBeds(shelter.getAvailableBeds() +
+            user.getCurrentClaim().getBedCount()));
     }
 
     @Nullable private User updateUser(User newUser) {

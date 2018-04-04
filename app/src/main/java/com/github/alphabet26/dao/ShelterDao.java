@@ -28,7 +28,8 @@ public interface ShelterDao extends Dao<Integer, Shelter> {
      * Creates a SearchRequest out of the given parameters and passes it to
      * {@link #search(SearchRequest)}.
      */
-    List<Shelter> search(@Nullable String shelterName, @Nullable Gender gender, @Nullable AgeRange ageRange);
+    List<Shelter> search(
+        @Nullable String shelterName, @Nullable Gender gender, @Nullable AgeRange ageRange);
 
     @Nullable Shelter update(Shelter newInfo);
 }

@@ -40,15 +40,18 @@ public class InMemoryUserDaoTest {
 
     @Test
     public void register_shouldReturnDifferentUUIDsEveryTime() {
-        UserRegistrationInfo u1 = UserRegistrationInfo.create("Name1", "username1", "password2", UserType.USER);
-        UserRegistrationInfo u2 = UserRegistrationInfo.create("Name2", "username2", "password2", UserType.ADMIN);
+        UserRegistrationInfo u1 = UserRegistrationInfo.create(
+            "Name1", "username1", "password2", UserType.USER);
+        UserRegistrationInfo u2 = UserRegistrationInfo.create(
+            "Name2", "username2", "password2", UserType.ADMIN);
 
         assertThat(dao.register(u1)).isNotEqualTo(dao.register(u2));
     }
 
     @Test
     public void register_shouldNotStorePasswordsInPlaintext() {
-        User fromStore = dao.find(dao.register(UserRegistrationInfo.create("Name", "username", "password", UserType.USER)).getId());
+        User fromStore = dao.find(dao.register(UserRegistrationInfo.create(
+            "Name", "username", "password", UserType.USER)).getId());
         assertThat(fromStore).isNotNull();
         assertThat(fromStore.getPasswordHash()).isNotEqualTo("password2");
     }
@@ -56,8 +59,10 @@ public class InMemoryUserDaoTest {
     @Test
     public void register_shouldThrowIllegalArgumentExceptionIfUsernameExists() {
         // The only thing the same between these two are the usernames
-        UserRegistrationInfo u1 = UserRegistrationInfo.create("Name1", "username", "password2", UserType.USER);
-        UserRegistrationInfo u2 = UserRegistrationInfo.create("Name2", "username", "password2", UserType.ADMIN);
+        UserRegistrationInfo u1 = UserRegistrationInfo.create(
+            "Name1", "username", "password2", UserType.USER);
+        UserRegistrationInfo u2 = UserRegistrationInfo.create(
+            "Name2", "username", "password2", UserType.ADMIN);
         dao.register(u1);
 
         try {
@@ -102,7 +107,8 @@ public class InMemoryUserDaoTest {
 
         Shelter afterShelter = shelterDao.find(beforeShelter.getId());
         assertThat(afterShelter).isNotNull();
-        assertThat(afterShelter.getAvailableBeds()).isEqualTo(beforeShelter.getAvailableBeds() - beds);
+        assertThat(afterShelter.getAvailableBeds()).isEqualTo(
+            beforeShelter.getAvailableBeds() - beds);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -113,14 +119,16 @@ public class InMemoryUserDaoTest {
     @Test(expected = IllegalArgumentException.class)
     public void claimBeds_shouldThrowWhenShelterIdIsNotValid() {
         // Use shelterDao.find().size() because there are N shelters whose IDs range from 0 to N - 1
-        dao.claimBeds(shelterDao, dao.register(REG_INFO).getId(), shelterDao.list().size(), 1);
+        dao.claimBeds(
+            shelterDao, dao.register(REG_INFO).getId(), shelterDao.list().size(), 1);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void claimBeds_shouldThrowWhenShelterDoesNotHaveEnoughBeds() {
         // In our test data, each shelter has the same number of available beds as its ID, so
         // shelter 0 has 0 beds left.
-        dao.claimBeds(shelterDao, dao.register(REG_INFO).getId(), shelterDao.list().get(0).getId(), 1);
+        dao.claimBeds(
+            shelterDao, dao.register(REG_INFO).getId(), shelterDao.list().get(0).getId(), 1);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -137,6 +145,7 @@ public class InMemoryUserDaoTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void claimBeds_shouldThrowWhenBedsIsNotPositive() {
-        dao.claimBeds(shelterDao, dao.register(REG_INFO).getId(), shelterDao.list().get(0).getId(), 0);
+        dao.claimBeds(
+            shelterDao, dao.register(REG_INFO).getId(), shelterDao.list().get(0).getId(), 0);
     }
 }
