@@ -20,6 +20,9 @@ import java.util.UUID;
 public final class InMemoryUserDao extends InMemoryDao<UUID, User> implements UserDao {
     private final Object lock = new Object();
 
+    /**
+     * instantiation declaration
+     */
     public InMemoryUserDao() {
         super(new ArrayList<User>());
     }

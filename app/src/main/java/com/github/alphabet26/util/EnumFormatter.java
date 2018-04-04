@@ -11,13 +11,17 @@ package com.github.alphabet26.util;
  */
 public interface EnumFormatter {
     /**
-     * Attempts to format the name of an enum (like {@code FOO_BAR} or {@code BAZ}) into something
-     * more readable.
+     * Attempts to format the name of an enum (like {@code FOO_BAR} or {@code BAZ}) into
+     * something more readable.
+     * @param enumName is the enum name
+     * @return something more readable
      */
     String format(String enumName);
 
     /**
      * Takes a formatted enum name and converts it back to its constant name
+     * @param formattedName formatted name
+     * @return the constant name
      */
     String unformat(String formattedName);
 }

@@ -7,6 +7,11 @@ import com.github.alphabet26.model.Model;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * InMemoryDao is the current dao being used in memory
+ * @param <I> data
+ * @param <T> data
+ */
 public abstract class InMemoryDao<I, T extends Model<I>> implements Dao<I, T> {
     protected List<T> data;
 

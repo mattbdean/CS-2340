@@ -29,6 +29,9 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Dashboard activity
+ */
 public final class DashboardActivity extends AppCompatActivity {
     static final String PARAM_SEARCH_REQ = "searchRequest";
 
@@ -108,6 +111,10 @@ public final class DashboardActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * What happens when the user logs out.
+     * @param view is the view
+     */
     public void onLogout(@Nullable View view) {
         App.get().onLogout();
         finish();

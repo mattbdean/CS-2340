@@ -21,6 +21,12 @@ public abstract class BedClaim implements Parcelable {
      */
     public abstract int getBedCount();
 
+    /**
+     * Creates a bed claim
+     * @param newShelterId the new shelter id
+     * @param newBedCount the new bed count
+     * @return the BedClaim
+     */
     public static BedClaim create(int newShelterId, int newBedCount) {
         return new AutoValue_BedClaim(newShelterId, newBedCount);
     }
