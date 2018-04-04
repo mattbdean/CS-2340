@@ -15,11 +15,14 @@ public interface Dao<I, T extends Model<I>> {
     /**
      * Attempts to find a particular piece of data given its ID. Returns null if there is no model
      * associated with that ID.
+     * @param id the corresponding id
+     * @return info
      */
     @Nullable T find(I id);
 
     /**
      * Returns a list of all models in no particular order
+     * @return the list of models
      */
     List<T> list();
 
@@ -27,8 +30,9 @@ public interface Dao<I, T extends Model<I>> {
      * Finds a model that has the same ID as the given model and replaces the existing data with the
      * given data.
      *
-     * @throws IllegalArgumentException If there is existing model with the same ID as the model
-     * given
+     * @throws IllegalArgumentException If there is existing model with the same ID as the
+     * model given
+     * @param current data
      * @return The data that was replaced
      */
     T update(T current);

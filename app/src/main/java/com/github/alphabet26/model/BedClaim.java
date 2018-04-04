@@ -9,9 +9,24 @@ import com.google.auto.value.AutoValue;
  */
 @AutoValue
 public abstract class BedClaim implements Parcelable {
+    /**
+     * getter method shelter id
+     * @return the shelter id
+     */
     public abstract int getShelterId();
+
+    /**
+     * getter method for bed count
+     * @return the bed count
+     */
     public abstract int getBedCount();
 
+    /**
+     * Creates a bed claim
+     * @param newShelterId the new shelter id
+     * @param newBedCount the new bed count
+     * @return the BedClaim
+     */
     public static BedClaim create(int newShelterId, int newBedCount) {
         return new AutoValue_BedClaim(newShelterId, newBedCount);
     }

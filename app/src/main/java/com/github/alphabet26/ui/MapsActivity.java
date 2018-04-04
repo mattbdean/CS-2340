@@ -15,7 +15,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.List;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
+public final class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
     /**
      * Amount of padding in pixels on all sides to add when updating the Google Maps camera for the
      * first time.

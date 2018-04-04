@@ -29,6 +29,9 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Dashboard activity
+ */
 public final class DashboardActivity extends AppCompatActivity {
     static final String PARAM_SEARCH_REQ = "searchRequest";
 
@@ -108,6 +111,10 @@ public final class DashboardActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * What happens when the user logs out.
+     * @param view is the view
+     */
     public void onLogout(@Nullable View view) {
         App.get().onLogout();
         finish();
@@ -147,11 +154,7 @@ public final class DashboardActivity extends AppCompatActivity {
         @Override
         public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
             Shelter shelter = mShelterList.get(position);
-            holder.bind(mShelterList.get(position), listener);
-            holder.mShelterName.setText(shelter.getName());
-            holder.mShelterCapacity.setText(holder.itemView.getContext().getString(
-                R.string.shelter_capacity, shelter.getCapacity()));
-            holder.mShelterPhone.setText(shelter.getPhoneNumber());
+            holder.bind(shelter, listener);
         }
 
         // Return the size of list (invoked by the layout manager)
@@ -184,6 +187,10 @@ public final class DashboardActivity extends AppCompatActivity {
                     listener.onItemClick(shelter);
                 }
             });
+            mShelterName.setText(shelter.getName());
+            mShelterCapacity.setText(itemView.getContext().getString(
+                R.string.shelter_capacity, shelter.getCapacity()));
+            mShelterPhone.setText(shelter.getPhoneNumber());
         }
     }
 

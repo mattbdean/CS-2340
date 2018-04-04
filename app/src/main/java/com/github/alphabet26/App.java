@@ -24,16 +24,22 @@ import java.util.UUID;
 
 import okio.Okio;
 
+/**
+ * Main application
+ */
 public class App extends Application {
     private static App instance;
 
     private UserDao userDao;
     private ShelterDao shelterDao;
 
+
     private UUID activeUser;
 
     @Override
     public void onCreate() {
+        Moshi moshi;
+        JsonAdapter<List<Shelter>> shelterAdapter;
         super.onCreate();
         instance = this;
 
@@ -46,11 +52,10 @@ public class App extends Application {
             this.userDao = new InMemoryUserDao();
         }
 
-        Moshi moshi = new Moshi.Builder()
+        moshi = new Moshi.Builder()
             .add(ModelAdapterFactory.create())
             .build();
-        JsonAdapter<List<Shelter>> shelterAdapter = moshi.adapter(Types.newParameterizedType(
-            List.class, Shelter.class));
+        shelterAdapter = moshi.adapter(Types.newParameterizedType(List.class, Shelter.class));
 
         List<Shelter> shelters = null;
         try {
@@ -60,16 +65,28 @@ public class App extends Application {
             Log.e(App.class.getSimpleName(), "Unable to load shelters from the CSV");
         }
 
-        if (shelters == null) {
+        if (shelters == null)
             shelters = new ArrayList<>();
-        }
 
         this.shelterDao = new InMemoryShelterDao(shelters);
     }
 
+    /**
+     * Getter method for user dao
+     * @return the user dao
+     */
     @NonNull public UserDao getUserDao() { return userDao; }
+
+    /**
+     * Getter method for shelter dao
+     * @return shelter dao
+     */
     @NonNull public ShelterDao getShelterDao() { return shelterDao; }
 
+    /**
+     * Getter method for the active user's id
+     * @return the active user's id
+     */
     public UUID getActiveUserId() {
         if (activeUser == null) {
             throw new IllegalStateException("No active user");
@@ -78,16 +95,16 @@ public class App extends Application {
         return activeUser;
     }
 
-    /** Returns true if and only if there is an active user */
-    public boolean hasActiveUser() {
-        return activeUser != null;
-    }
-
-    /** Updates the active user to the one provided */
+    /** Updates the active user to the one provided
+     * @param user is the user*/
     public void onLogin(@NonNull User user) { this.activeUser = user.getId(); }
 
     /** Removes the reference to the active user */
     public void onLogout() { this.activeUser = null; }
 
+    /**
+     * Gets this class: App
+     * @return this class
+     */
     @NonNull public static App get() { return instance; }
 }

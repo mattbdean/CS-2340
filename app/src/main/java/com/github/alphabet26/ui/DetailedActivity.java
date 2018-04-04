@@ -20,6 +20,9 @@ import com.github.alphabet26.model.Shelter;
 import java.lang.ref.WeakReference;
 import java.util.Locale;
 
+/**
+ * The detailed activity class
+ */
 public class DetailedActivity extends AppCompatActivity {
     private int shelterId;
 
@@ -93,15 +96,27 @@ public class DetailedActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     *  what happens when you claim the bed
+     * @param view the view
+     */
     public void onClaim(View view) {
         new ClaimTask(this).execute(ClaimRequest.claim(shelterId, Integer.parseInt(
             numBeds.getText().toString())));
     }
 
+    /**
+     * Cancels bed claim
+     * @param view the view
+     */
     public void onCancel(View view) {
         new ClaimTask(this).execute(ClaimRequest.unclaim(shelterId));
     }
 
+    /**
+     * exits detailed activity
+     * @param view the view
+     */
     public void onDone(View view) {
         finish();
     }

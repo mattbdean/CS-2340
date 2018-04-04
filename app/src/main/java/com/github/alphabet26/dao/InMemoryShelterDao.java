@@ -12,11 +12,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+/**
+ * ShelterDao being used in memory
+ */
 public final class InMemoryShelterDao extends InMemoryDao<Integer, Shelter> implements ShelterDao {
+    /**
+     * instantiation declaration
+     */
     public InMemoryShelterDao() {
         this(new ArrayList<Shelter>());
     }
 
+    /**
+     * Instantiation declaration
+     * @param initialData the initial data from list
+     */
     public InMemoryShelterDao(@NonNull List<Shelter> initialData) {
         super(initialData);
     }
