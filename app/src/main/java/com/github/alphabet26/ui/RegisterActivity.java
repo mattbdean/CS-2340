@@ -21,7 +21,7 @@ import java.lang.ref.WeakReference;
 
 public final class RegisterActivity extends AppCompatActivity {
     private EditText nameField;
-    private EditText usernameField;
+    private EditText emailField;
     private EditText passwordField;
     private EditText vPasswordField;
     private Spinner userTypeSpinner;
@@ -32,7 +32,7 @@ public final class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
 
         nameField = ((TextInputLayout) findViewById(R.id.reg_name)).getEditText();
-        usernameField = ((TextInputLayout) findViewById(R.id.reg_username)).getEditText();
+        emailField = ((TextInputLayout) findViewById(R.id.reg_email)).getEditText();
         passwordField = ((TextInputLayout) findViewById(R.id.reg_password)).getEditText();
         vPasswordField = ((TextInputLayout) findViewById(R.id.reg_passwordV)).getEditText();
         userTypeSpinner = findViewById(R.id.user_type_spinner);
@@ -44,7 +44,7 @@ public final class RegisterActivity extends AppCompatActivity {
     public void onRegister(View view) {
         UserRegistrationInfo info = UserRegistrationInfo.create(
                 nameField.getText().toString(),
-                usernameField.getText().toString(),
+                emailField.getText().toString(),
                 passwordField.getText().toString(),
                 (UserType) userTypeSpinner.getSelectedItem()
         );

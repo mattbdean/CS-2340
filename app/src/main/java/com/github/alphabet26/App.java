@@ -41,7 +41,7 @@ public class App extends Application {
 
         if (BuildConfig.DEBUG) {
             this.userDao = new InMemoryUserDao();
-            this.userDao.register(UserRegistrationInfo.create("<testing user>", "username", "password", UserType.USER));
+            this.userDao.register(UserRegistrationInfo.create("George P. Burdell", "email", "pass", UserType.USER));
         } else {
             // TODO replace with other implementation such as Firebase or Android's SQLite db
             this.userDao = new InMemoryUserDao();

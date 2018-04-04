@@ -2,7 +2,7 @@
     <string name="app_name">Shelter Finder</string>
     <string name="login_button">Login</string>
     <string name="password_hint">Password</string>
-    <string name="username_hint">Username</string>
+    <string name="email_hint">Email</string>
     <string name="register_option">Don\'t have an account?
         Register here. Or, continue as a guest.</string>
     <string name="app_logo">App Logo</string>
@@ -13,7 +13,7 @@
     <string name="welcome_message">Welcome, %s</string>
     <string name="registration">Create an Account</string>
     <string name="registration_name">Name</string>
-    <string name="registration_username">Username</string>
+    <string name="registration_email">Email</string>
     <string name="registration_password">Password</string>
     <string name="reg_passwordV">Verify Password</string>
     <string name="registration_user_type">What type of account are you signing up for?</string>

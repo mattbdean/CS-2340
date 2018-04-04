@@ -20,9 +20,9 @@ public interface UserDao extends Dao<UUID, User> {
 
     /**
      * Attempts to login as the given user. Returns the details of the user if and only if the given
-     * username/password combination is correct. Returns null otherwise.
+     * email/password combination is correct. Returns null otherwise.
      */
-    @Nullable User login(String username, String password);
+    @Nullable User login(String email, String password);
 
     /**
      * Attempts to claim a bed for a user with the specified ID

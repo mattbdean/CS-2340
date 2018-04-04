@@ -29,8 +29,8 @@ public final class InMemoryUserDao extends InMemoryDao<UUID, User> implements Us
         // Runs in linear time but that's fine for now
         synchronized (lock) {
             for (User u : data) {
-                if (u.getUsername().equals(info.getUsername())) {
-                    throw new IllegalArgumentException("Username already registered: " + u.getUsername());
+                if (u.getEmail().equals(info.getEmail())) {
+                    throw new IllegalArgumentException("Email already in use: " + u.getEmail());
                 }
             }
 
@@ -43,12 +43,12 @@ public final class InMemoryUserDao extends InMemoryDao<UUID, User> implements Us
     }
 
     @Override
-    public User login(String username, String password) {
+    public User login(String email, String password) {
         String hash = naiveHash(password);
 
         synchronized (lock) {
             for (User u : data) {
-                if (u.getUsername().equals(username) && u.getPasswordHash().equals(hash)) {
+                if (u.getEmail().equals(email) && u.getPasswordHash().equals(hash)) {
                     return u;
                 }
             }

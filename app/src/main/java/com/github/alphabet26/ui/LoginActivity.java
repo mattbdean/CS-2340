@@ -20,7 +20,7 @@ import com.github.alphabet26.model.User;
 import java.lang.ref.WeakReference;
 
 public final class LoginActivity extends AppCompatActivity {
-    private EditText usernameField;
+    private EditText emailField;
     private EditText passwordField;
 
     @Override
@@ -28,7 +28,7 @@ public final class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        this.usernameField = ((TextInputLayout) findViewById(R.id.username)).getEditText();
+        this.emailField = ((TextInputLayout) findViewById(R.id.email)).getEditText();
         this.passwordField = ((TextInputLayout) findViewById(R.id.password)).getEditText();
 
         passwordField.setTransformationMethod(new PasswordTransformationMethod());
@@ -49,7 +49,7 @@ public final class LoginActivity extends AppCompatActivity {
 
     public void onLogin(View view) {
         // Try to log in using the given credentials
-        new LoginTask(this).execute(usernameField.getText().toString(),
+        new LoginTask(this).execute(emailField.getText().toString(),
                 passwordField.getText().toString());
     }
 
@@ -84,9 +84,9 @@ public final class LoginActivity extends AppCompatActivity {
 
             // Clear the form and focus the username field so that the user can start another login
             // attempt
-            activity.usernameField.setText("");
+            activity.emailField.setText("");
             activity.passwordField.setText("");
-            activity.usernameField.requestFocus();
+            activity.emailField.requestFocus();
 
             if (user == null) {
                 Snackbar.make(activity.findViewById(R.id.logo),
