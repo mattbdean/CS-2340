@@ -4,6 +4,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -48,20 +49,22 @@ public class DetailedActivity extends AppCompatActivity {
     }
 
     private void updateView(Shelter shelter) {
-        getSupportActionBar().setTitle(shelter.getName() + " - Details");
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setTitle(getString(R.string.shelter_details_title, shelter.getName()));
+        }
 
         shelterId = shelter.getId();
 
         shelterTitle.setText(shelter.getName());
         String s = shelter.getLatitude() + ", " + shelter.getLongitude();
         longAndLat.setText(s);
-        cap.setText("Capacity: " + shelter.getCapacity());
+        cap.setText(getString(R.string.capacity_status, shelter.getCapacity()));
         phoneNum.setText(shelter.getPhoneNumber());
         address.setText(shelter.getAddress());
-        availableBeds.setText("Available Beds: " + shelter.getAvailableBeds());
+        availableBeds.setText(getString(R.string.available_beds_status, shelter.getAvailableBeds()));
 
-        String genderStr = shelter.getGender() == null ? "Any" : shelter.getGender().name().toLowerCase();
-        gender.setText("Allowed: " + genderStr);
+        gender.setText(getString(R.string.allowed_status, shelter.getGender().name().toLowerCase()));
     }
 
     @Override

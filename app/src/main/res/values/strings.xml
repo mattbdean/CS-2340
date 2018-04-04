@@ -28,4 +28,14 @@
     <string name="search">Search</string>
     <string name="home">Home</string>
     <string name="title_activity_maps">Map</string>
+    <string name="create_an_account">Create an Account</string>
+    <string name="claim_bed">Claim a Bed</string>
+    <string name="beds_input_hint">Number of beds</string>
+    <string name="cancel_reservation">Cancel Reservation</string>
+
+    <string name="shelter_capacity">%d</string>
+    <string name="shelter_details_title">%s - Details</string>
+    <string name="capacity_status">Capacity: %d</string>
+    <string name="available_beds_status">Available Beds: %d</string>
+    <string name="allowed_status">Allowed: %s</string>
 </resources>

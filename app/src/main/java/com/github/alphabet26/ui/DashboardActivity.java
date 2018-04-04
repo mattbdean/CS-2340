@@ -147,7 +147,7 @@ public final class DashboardActivity extends AppCompatActivity {
             Shelter shelter = mShelterList.get(position);
             holder.bind(mShelterList.get(position), listener);
             holder.mShelterName.setText(shelter.getName());
-            holder.mShelterCapacity.setText("" + shelter.getCapacity());
+            holder.mShelterCapacity.setText(holder.itemView.getContext().getString(R.string.shelter_capacity, shelter.getCapacity()));
             holder.mShelterPhone.setText(shelter.getPhoneNumber());
         }
 
