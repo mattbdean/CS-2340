@@ -42,13 +42,14 @@ public final class RegisterActivity extends AppCompatActivity {
     }
 
     public void onRegister(View view) {
-        UserRegistrationInfo info = UserRegistrationInfo.create(
+        if (passwordField.getText().toString().equals(vPasswordField.getText().toString())) {
+            UserRegistrationInfo info = UserRegistrationInfo.create(
                 nameField.getText().toString(),
                 usernameField.getText().toString(),
                 passwordField.getText().toString(),
                 (UserType) userTypeSpinner.getSelectedItem()
-        );
-        if (passwordField.getText().toString().equals(vPasswordField.getText().toString())) {
+            );
+
             new RegisterTask(this).execute(info);
         } else {
             Snackbar.make(findViewById(R.id.reg_name),
