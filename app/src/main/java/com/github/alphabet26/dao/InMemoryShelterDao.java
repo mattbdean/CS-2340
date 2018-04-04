@@ -27,6 +27,7 @@ public final class InMemoryShelterDao extends InMemoryDao<Integer, Shelter> impl
 
     @Override
     public List<Shelter> search(@NonNull SearchRequest req) {
+        //noinspection ConstantConditions
         if (req == null)
             throw new IllegalArgumentException("req == null");
 
