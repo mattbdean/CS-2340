@@ -10,6 +10,7 @@ import com.github.alphabet26.model.Shelter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public final class InMemoryShelterDao extends InMemoryDao<Integer, Shelter> implements ShelterDao {
     public InMemoryShelterDao() {
@@ -41,7 +42,8 @@ public final class InMemoryShelterDao extends InMemoryDao<Integer, Shelter> impl
         for (Shelter s : allShelters) {
             // Ignore shelterName if it's null, otherwise the shelter's name must contain
             // shelterName (ignoring case)
-            boolean nameMatches = shelterName == null || s.getName().toLowerCase().contains(shelterName.toLowerCase());
+            boolean nameMatches = shelterName == null || s.getName().toLowerCase(Locale.getDefault())
+                .contains(shelterName.toLowerCase(Locale.getDefault()));
 
             // For AgeRange and Gender, ignore if they're null or equal to ANY
             boolean ageRangeMatches = ageRange == null || ageRange == AgeRange.ANY || ageRange == s.getAgeRange();

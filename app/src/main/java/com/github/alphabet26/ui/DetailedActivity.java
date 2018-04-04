@@ -18,6 +18,7 @@ import com.github.alphabet26.R;
 import com.github.alphabet26.model.Shelter;
 
 import java.lang.ref.WeakReference;
+import java.util.Locale;
 
 public class DetailedActivity extends AppCompatActivity {
     private int shelterId;
@@ -64,7 +65,7 @@ public class DetailedActivity extends AppCompatActivity {
         address.setText(shelter.getAddress());
         availableBeds.setText(getString(R.string.available_beds_status, shelter.getAvailableBeds()));
 
-        gender.setText(getString(R.string.allowed_status, shelter.getGender().name().toLowerCase()));
+        gender.setText(getString(R.string.allowed_status, shelter.getGender().name().toLowerCase(Locale.getDefault())));
     }
 
     @Override
