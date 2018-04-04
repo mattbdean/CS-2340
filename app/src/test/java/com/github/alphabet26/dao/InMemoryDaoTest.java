@@ -57,8 +57,8 @@ public class InMemoryDaoTest {
     }
 
     private static final class Foo implements Model<Integer> {
-        private int id;
-        private int bar;
+        private final int id;
+        private final int bar;
         Foo(int id) { this(id, id * 2); }
         Foo(int id, int bar) { this.id = id; this.bar = bar; }
         @Override public Integer getId() { return id; }
@@ -88,7 +88,8 @@ public class InMemoryDaoTest {
 
         void addEntries(int count) {
             for (int i = 0; i < count; i++) {
-                data.add(new Foo(lastEntry++));
+                data.add(new Foo(lastEntry));
+                lastEntry = lastEntry + 1;
             }
         }
     }

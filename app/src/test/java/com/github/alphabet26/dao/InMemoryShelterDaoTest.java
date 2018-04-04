@@ -114,8 +114,8 @@ public final class InMemoryShelterDaoTest {
                     69, g, r, 0, 0, "<address>", "<phone #>", "<notes>", shelterCounter));
 
                 shelterCounter++;
-
-                if (++genderCounter >= Gender.values().length) {
+                genderCounter = genderCounter + 1;
+                if (genderCounter >= Gender.values().length) {
                     genderCounter = 0;
                     ageRangeCounter++;
                 }

@@ -65,9 +65,9 @@ public class App extends Application {
             Log.e(App.class.getSimpleName(), "Unable to load shelters from the CSV");
         }
 
-        if (shelters == null)
+        if (shelters == null) {
             shelters = new ArrayList<>();
-
+        }
         this.shelterDao = new InMemoryShelterDao(shelters);
     }
 

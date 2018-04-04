@@ -29,11 +29,10 @@ public final class SearchQueryActivity extends AppCompatActivity {
     public void onSearch(@Nullable View view) {
         Intent i = new Intent(this, DashboardActivity.class);
         i.putExtra(DashboardActivity.PARAM_SEARCH_REQ, SearchRequest.create(
-            /*name = */ shelterInput.getEditText() == null ? null :
-                (shelterInput.getEditText().getText().toString()),
-            /*gender = */ genderSpinner.getSelectedItem(),
-            /*ageRange = */ ageRangeSpinner.getSelectedItem()
-        ));
+            /*name = */ (shelterInput.getEditText() == null) ? null :
+                ((shelterInput.getEditText().getText().toString())),
+            /*gender = */ (genderSpinner.getSelectedItem()),
+            /*ageRange = */ (ageRangeSpinner.getSelectedItem())));
         startActivity(i);
     }
 }

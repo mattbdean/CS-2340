@@ -3,7 +3,7 @@ package com.github.alphabet26.model;
 import com.google.auto.value.AutoValue;
 
 @AutoValue
-/*
+/**
  * user registration info represents a user's info for registration
  */
 public abstract class UserRegistrationInfo {

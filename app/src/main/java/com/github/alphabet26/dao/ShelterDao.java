@@ -21,12 +21,18 @@ public interface ShelterDao extends Dao<Integer, Shelter> {
      * parameter is up to the individual implementation. To exclude gender matching, pass null to
      * `gender`. Both {@link AgeRange#ANY} and `null` provide the same functionality for age range
      * filtering.
+     * @param req is the search request
+     * @return a list of shelters that are in the search
      */
     List<Shelter> search(@NonNull SearchRequest req);
 
     /**
      * Creates a SearchRequest out of the given parameters and passes it to
      * {@link #search(SearchRequest)}.
+     * @param shelterName the shelter name searching
+     * @param gender the gender searching
+     * @param ageRange the age range searching
+     * @return a list of shelters in search
      */
     List<Shelter> search(
         @Nullable String shelterName, @Nullable Gender gender, @Nullable AgeRange ageRange);
