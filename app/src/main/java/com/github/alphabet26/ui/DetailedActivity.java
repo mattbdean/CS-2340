@@ -48,6 +48,8 @@ public class DetailedActivity extends AppCompatActivity {
     }
 
     private void updateView(Shelter shelter) {
+        getSupportActionBar().setTitle(shelter.getName() + " - Details");
+
         shelterId = shelter.getId();
 
         shelterTitle.setText(shelter.getName());
