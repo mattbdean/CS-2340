@@ -22,7 +22,6 @@ public abstract class InMemoryDao<I, T extends Model<I>> implements Dao<I, T> {
                 return element;
             }
         }
-
         return null;
     }
 
