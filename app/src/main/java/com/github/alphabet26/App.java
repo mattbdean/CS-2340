@@ -42,7 +42,8 @@ public class App extends Application {
 
         if (BuildConfig.DEBUG) {
             this.userDao = new InMemoryUserDao();
-            this.userDao.register(UserRegistrationInfo.create("<testing user>", "username", "password", UserType.USER));
+            this.userDao.register(UserRegistrationInfo.create(
+                "<testing user>", "username", "password", UserType.USER));
         } else {
             // TODO replace with other implementation such as Firebase or Android's SQLite db
             this.userDao = new InMemoryUserDao();
@@ -55,7 +56,8 @@ public class App extends Application {
 
         List<Shelter> shelters = null;
         try {
-            shelters = shelterAdapter.fromJson(Okio.buffer(Okio.source(getAssets().open("shelters.json"))));
+            shelters = shelterAdapter.fromJson(Okio.buffer(Okio.source(getAssets().open(
+                "shelters.json"))));
         } catch (IOException e) {
             Log.e(App.class.getSimpleName(), "Unable to load shelters from the CSV");
         }

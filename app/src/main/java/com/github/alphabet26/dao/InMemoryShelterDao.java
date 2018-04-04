@@ -22,7 +22,8 @@ public final class InMemoryShelterDao extends InMemoryDao<Integer, Shelter> impl
     }
 
     @Override
-    public List<Shelter> search(@Nullable String shelterName, @Nullable Gender gender, @Nullable AgeRange ageRange) {
+    public List<Shelter> search(
+        @Nullable String shelterName, @Nullable Gender gender, @Nullable AgeRange ageRange) {
         return search(SearchRequest.create(shelterName, gender, ageRange));
     }
 
@@ -42,12 +43,15 @@ public final class InMemoryShelterDao extends InMemoryDao<Integer, Shelter> impl
         for (Shelter s : allShelters) {
             // Ignore shelterName if it's null, otherwise the shelter's name must contain
             // shelterName (ignoring case)
-            boolean nameMatches = shelterName == null || s.getName().toLowerCase(Locale.getDefault())
+            boolean nameMatches = shelterName == null || s.getName().toLowerCase(
+                Locale.getDefault())
                 .contains(shelterName.toLowerCase(Locale.getDefault()));
 
             // For AgeRange and Gender, ignore if they're null or equal to ANY
-            boolean ageRangeMatches = ageRange == null || ageRange == AgeRange.ANY || ageRange == s.getAgeRange();
-            boolean genderMatches = gender == null || gender == Gender.ANY || gender == s.getGender();
+            boolean ageRangeMatches = ageRange == null ||
+                ageRange == AgeRange.ANY || ageRange == s.getAgeRange();
+            boolean genderMatches = gender == null ||
+                gender == Gender.ANY || gender == s.getGender();
 
             // Make sure everything matches
             if (genderMatches && ageRangeMatches && nameMatches) {

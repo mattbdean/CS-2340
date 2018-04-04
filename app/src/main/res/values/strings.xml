@@ -17,7 +17,7 @@
     <string name="lat_and_long">Latitude and Longitude</string>
     <string name="cap">Capacity: 0</string>
     <string name="address">100 Ferst Dr.\n Atlanta, GA 30332</string>
-    <string name="phoneNum">(000) 000 0000</string>
+    <string name="phoneNum">(000) 000&#8211;0000</string>
     <string name="gender">Restrictions: None</string>
     <string name="doneButton">Done</string>
     <string name="search">Search</string>

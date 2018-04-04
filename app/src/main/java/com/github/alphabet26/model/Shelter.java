@@ -24,8 +24,12 @@ public abstract class Shelter implements Model<Integer>, Parcelable {
     @Json(name = "notes") public abstract String getSpecialNotes();
     public abstract int getAvailableBeds();
 
-    public static Shelter create(int id, String name, int capacity, Gender gender, AgeRange ageRange, float longitude, float latitude, String address, String phoneNumber, String specialNotes, int availableBeds) {
-        return new AutoValue_Shelter(id, name, capacity, gender, ageRange, longitude, latitude, address, phoneNumber, specialNotes, availableBeds);
+    public static Shelter create(int id, String name, int capacity, Gender gender,
+                                 AgeRange ageRange, float longitude, float latitude,
+                                 String address, String phoneNumber, String specialNotes,
+                                 int availableBeds) {
+        return new AutoValue_Shelter(id, name, capacity, gender, ageRange, longitude, latitude,
+            address, phoneNumber, specialNotes, availableBeds);
     }
 
     public static JsonAdapter<Shelter> jsonAdapter(Moshi moshi) {

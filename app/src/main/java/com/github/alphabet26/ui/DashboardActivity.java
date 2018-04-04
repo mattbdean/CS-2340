@@ -77,7 +77,8 @@ public final class DashboardActivity extends AppCompatActivity {
                     // hasn't finished we're not going to have any shelters to give the MapsActivity
 
                     Intent intent = new Intent(getBaseContext(), MapsActivity.class);
-                    intent.putParcelableArrayListExtra(MapsActivity.KEY_SHELTERS, displayedShelters);
+                    intent.putParcelableArrayListExtra(
+                        MapsActivity.KEY_SHELTERS, displayedShelters);
                     startActivity(intent);
 
                     return true;
@@ -148,7 +149,8 @@ public final class DashboardActivity extends AppCompatActivity {
             Shelter shelter = mShelterList.get(position);
             holder.bind(mShelterList.get(position), listener);
             holder.mShelterName.setText(shelter.getName());
-            holder.mShelterCapacity.setText(holder.itemView.getContext().getString(R.string.shelter_capacity, shelter.getCapacity()));
+            holder.mShelterCapacity.setText(holder.itemView.getContext().getString(
+                R.string.shelter_capacity, shelter.getCapacity()));
             holder.mShelterPhone.setText(shelter.getPhoneNumber());
         }
 
