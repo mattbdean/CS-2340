@@ -25,8 +25,8 @@ public final class InMemoryShelterDaoTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void search_shouldNotAcceptNullSearchRequests() {
-        //noinspection ConstantConditions
         dao = new InMemoryShelterDao();
+        //noinspection ConstantConditions
         dao.search(null);
     }
 
