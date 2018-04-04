@@ -10,6 +10,7 @@ import com.squareup.moshi.Moshi;
 /**
  * Shelter is a representation of a homeless shelter in the real world, it mainly holds information
  */
+@SuppressWarnings("ClassWithTooManyDependents")
 @AutoValue
 public abstract class Shelter implements Model<Integer>, Parcelable {
     @Override public abstract Integer getId();
