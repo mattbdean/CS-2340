@@ -22,7 +22,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      */
     private static final int MAP_INITIAL_PADDING = 50;
 
-    static final String KEY_SHELTERS = "shetlers";
+    static final String KEY_SHELTERS = "shelters";
 
     private List<Shelter> shelters;
 
@@ -33,7 +33,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         shelters = getIntent().getParcelableArrayListExtra(KEY_SHELTERS);
         if (shelters == null) {
-            throw new IllegalArgumentException("Expected to recieve an ArrayList of shelters via " +
+            throw new IllegalArgumentException("Expected to receive an ArrayList of shelters via " +
                 "the " + KEY_SHELTERS + " extra.");
         }
 
