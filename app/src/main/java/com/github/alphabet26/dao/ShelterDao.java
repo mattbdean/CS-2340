@@ -30,5 +30,5 @@ public interface ShelterDao extends Dao<Integer, Shelter> {
      */
     List<Shelter> search(@Nullable String shelterName, @Nullable Gender gender, @Nullable AgeRange ageRange);
 
-    @Nullable Shelter update(Shelter newInfo);
+    @Nullable @Override Shelter update(Shelter newInfo);
 }

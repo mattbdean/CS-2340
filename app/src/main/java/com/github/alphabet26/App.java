@@ -29,13 +29,14 @@ public class App extends Application {
 
     private UserDao userDao;
     private ShelterDao shelterDao;
-    private Moshi moshi;
-    private JsonAdapter<List<Shelter>> shelterAdapter;
+
 
     private UUID activeUser;
 
     @Override
     public void onCreate() {
+        Moshi moshi;
+        JsonAdapter<List<Shelter>> shelterAdapter;
         super.onCreate();
         instance = this;
 
