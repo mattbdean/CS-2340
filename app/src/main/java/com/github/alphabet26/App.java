@@ -29,8 +29,6 @@ public class App extends Application {
 
     private UserDao userDao;
     private ShelterDao shelterDao;
-    private Moshi moshi;
-    private JsonAdapter<List<Shelter>> shelterAdapter;
 
     private UUID activeUser;
 
@@ -48,10 +46,11 @@ public class App extends Application {
             this.userDao = new InMemoryUserDao();
         }
 
-        moshi = new Moshi.Builder()
+        Moshi moshi = new Moshi.Builder()
             .add(ModelAdapterFactory.create())
             .build();
-        shelterAdapter = moshi.adapter(Types.newParameterizedType(List.class, Shelter.class));
+        JsonAdapter<List<Shelter>> shelterAdapter = moshi.adapter(Types.newParameterizedType(
+            List.class, Shelter.class));
 
         List<Shelter> shelters = null;
         try {
@@ -61,8 +60,9 @@ public class App extends Application {
             Log.e(App.class.getSimpleName(), "Unable to load shelters from the CSV");
         }
 
-        if (shelters == null)
+        if (shelters == null) {
             shelters = new ArrayList<>();
+        }
 
         this.shelterDao = new InMemoryShelterDao(shelters);
     }

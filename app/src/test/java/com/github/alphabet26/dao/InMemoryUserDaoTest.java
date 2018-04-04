@@ -80,7 +80,8 @@ public class InMemoryUserDaoTest {
 
     @Test
     public void login_shouldReturnUserInfoOnSuccess() {
-        String username = "username", password = "password";
+        String username = "username";
+        String password = "password";
         User newUser = dao.register(REG_INFO);
         assertThat(dao.login(username, password)).isEqualTo(newUser);
     }

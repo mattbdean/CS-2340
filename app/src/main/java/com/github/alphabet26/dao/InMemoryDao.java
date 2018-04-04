@@ -42,9 +42,10 @@ public abstract class InMemoryDao<I, T extends Model<I>> implements Dao<I, T> {
             }
         }
 
-        if (previousInfo == null)
+        if (previousInfo == null) {
             throw new IllegalArgumentException("Cannot update model with ID " + newModel.getId() +
                 ", model doesn't exist");
+        }
 
         return previousInfo;
     }

@@ -61,27 +61,32 @@ public final class InMemoryUserDao extends InMemoryDao<UUID, User> implements Us
     @Override
     public BedClaim claimBeds(ShelterDao shelterDao, UUID userId, int shelterId, int beds) {
         // Do non-resource intensive checks first
-        if (beds <= 0)
+        if (beds <= 0) {
             throw new IllegalArgumentException("Must request at least one bed");
+        }
 
         Shelter shelter = shelterDao.find(shelterId);
         // Make sure the shelter ID is valid
-        if (shelter == null)
+        if (shelter == null) {
             throw new IllegalArgumentException("No known Shelter with ID " + shelterId);
+        }
 
         // Make sure we have enough beds
-        if (shelter.getAvailableBeds() < beds)
+        if (shelter.getAvailableBeds() < beds) {
             throw new IllegalArgumentException("Not enough beds at Shelter with ID " + shelterId);
+        }
 
         // Make sure the user ID is valid
         User user = find(userId);
-        if (user == null)
+        if (user == null) {
             throw new IllegalArgumentException("No known User with ID " + userId);
+        }
 
         // ...and that it doesn't have a current bed claim
-        if (user.getCurrentClaim() != null)
+        if (user.getCurrentClaim() != null) {
             throw new IllegalArgumentException("This user already has a BedClaim with shelter " +
                 user.getCurrentClaim().getShelterId());
+        }
 
         // Update the user and shelter with the new claim
         BedClaim claim = BedClaim.create(shelterId, beds);
@@ -95,17 +100,20 @@ public final class InMemoryUserDao extends InMemoryDao<UUID, User> implements Us
     public void releaseClaim(ShelterDao shelterDao, UUID userId) {
         User user = find(userId);
 
-        if (user == null)
+        if (user == null) {
             throw new IllegalArgumentException("No user for UUID " + userId);
+        }
 
-        if (user.getCurrentClaim() == null)
+        if (user.getCurrentClaim() == null) {
             // nothing to do
             return;
+        }
 
         Shelter shelter = shelterDao.find(user.getCurrentClaim().getShelterId());
-        if (shelter == null)
+        if (shelter == null) {
             throw new IllegalArgumentException(
                 "BedClaim listed invalid shelter ID: " + user.getCurrentClaim().getShelterId());
+        }
 
         updateUser(user.withClaim(null));
         shelterDao.update(shelter.withAvailableBeds(shelter.getAvailableBeds() +

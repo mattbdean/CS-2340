@@ -167,7 +167,9 @@ public final class DashboardActivity extends AppCompatActivity {
     }
 
     private static class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView mShelterName, mShelterCapacity, mShelterPhone;
+        private final TextView mShelterName;
+        private final TextView mShelterCapacity;
+        private final TextView mShelterPhone;
 
         ViewHolder(View v) {
             super(v);
@@ -186,7 +188,7 @@ public final class DashboardActivity extends AppCompatActivity {
     }
 
     private static final class SearchTask extends AsyncTask<SearchRequest, Void, List<Shelter>> {
-        private WeakReference<DashboardActivity> activity;
+        private final WeakReference<DashboardActivity> activity;
 
         public SearchTask(DashboardActivity activity) {
             this.activity = new WeakReference<>(activity);
@@ -203,7 +205,7 @@ public final class DashboardActivity extends AppCompatActivity {
         protected List<Shelter> doInBackground(SearchRequest... searchRequests) {
             ShelterDao shelterDao = App.get().getShelterDao();
 
-            if (searchRequests.length < 1 || searchRequests[0] == null) {
+            if ((searchRequests.length < 1) || (searchRequests[0] == null)) {
                 return shelterDao.list();
             } else {
                 return shelterDao.search(searchRequests[0]);

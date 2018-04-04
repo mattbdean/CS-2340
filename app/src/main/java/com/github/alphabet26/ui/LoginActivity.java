@@ -58,7 +58,7 @@ public final class LoginActivity extends AppCompatActivity {
     }
 
     private static final class LoginTask extends AsyncTask<String, Void, User> {
-        private WeakReference<LoginActivity> activity;
+        private final WeakReference<LoginActivity> activity;
 
         LoginTask(LoginActivity activity) {
             this.activity = new WeakReference<>(activity);
@@ -66,9 +66,10 @@ public final class LoginActivity extends AppCompatActivity {
 
         @Override
         protected User doInBackground(String... authData) {
-            if (authData.length < 2)
+            if (authData.length < 2) {
                 throw new IllegalArgumentException("Expecting a username and password, got only " +
                     authData.length + " arguments.");
+            }
 
             return App.get().getUserDao().login(authData[0], authData[1]);
         }

@@ -16,7 +16,7 @@ public final class TitleCaseEnumFormatter implements EnumFormatter {
                 .append(Character.toUpperCase(parts[i].charAt(0)))
                 .append(parts[i].substring(1).toLowerCase(Locale.getDefault()));
 
-            if (i != parts.length - 1) {
+            if (i != (parts.length - 1)) {
                 builder.append(" ");
             }
         }
@@ -32,7 +32,7 @@ public final class TitleCaseEnumFormatter implements EnumFormatter {
         for (int i = 0; i < parts.length; i++) {
             builder.append(parts[i].toUpperCase(Locale.getDefault()));
 
-            if (i != parts.length - 1) {
+            if (i != (parts.length - 1)) {
                 builder.append("_");
             }
         }

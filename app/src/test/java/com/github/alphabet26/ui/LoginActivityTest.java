@@ -46,7 +46,7 @@ public final class LoginActivityTest {
 
     private void setText(@IdRes int textInputLayoutId, CharSequence content) {
         TextInputLayout layout = activity.findViewById(textInputLayoutId);
-        if (layout == null || layout.getEditText() == null) {
+        if ((layout == null) || (layout.getEditText() == null)) {
             throw new IllegalStateException("Could not find TextInputLayout with EditText child " +
                     "with provided ID");
         }

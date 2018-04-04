@@ -10,7 +10,6 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.Nullable;
 
 import static com.google.common.truth.Truth.assertThat;
 
