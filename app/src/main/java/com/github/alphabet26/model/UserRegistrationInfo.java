@@ -1,21 +1,15 @@
 package com.github.alphabet26.model;
 
-// TODO use autovalue
-public final class UserRegistrationInfo {
-    private final String name;
-    private final String username;
-    private final String plaintextPassword;
-    private final UserType type;
+import com.google.auto.value.AutoValue;
 
-    public UserRegistrationInfo(String name, String username, String plaintextPassword, UserType type) {
-        this.name = name;
-        this.username = username;
-        this.plaintextPassword = plaintextPassword;
-        this.type = type;
+@AutoValue
+public abstract class UserRegistrationInfo {
+    public abstract String getName();
+    public abstract String getUsername();
+    public abstract String getPlaintextPassword();
+    public abstract UserType getUserType();
+
+    public static UserRegistrationInfo create(String newName, String newUsername, String newPlaintextPassword, UserType newUserType) {
+        return new AutoValue_UserRegistrationInfo(newName, newUsername, newPlaintextPassword, newUserType);
     }
-
-    public String getName() { return name; }
-    public String getUsername() { return username; }
-    public String getPlaintextPassword() { return plaintextPassword; }
-    public UserType getUserType() { return type; }
 }
