@@ -128,7 +128,7 @@ public final class DashboardActivity extends AppCompatActivity {
     }
 
     private static class RecyclerAdapter extends RecyclerView.Adapter<ViewHolder> {
-        public interface OnItemClickListener {
+        interface OnItemClickListener {
             void onItemClick(Shelter shelter);
         }
 
@@ -136,7 +136,7 @@ public final class DashboardActivity extends AppCompatActivity {
         private final OnItemClickListener listener;
 
         // adapter constructor
-        public RecyclerAdapter(OnItemClickListener listener) {
+        RecyclerAdapter(OnItemClickListener listener) {
             this.listener = listener;
             mShelterList = new ArrayList<>();
         }
@@ -163,8 +163,8 @@ public final class DashboardActivity extends AppCompatActivity {
             return mShelterList.size();
         }
 
-        public void setShelters(List<Shelter> shelters) {
-            this.mShelterList = shelters;
+        void setShelters(List<Shelter> shelters) {
+            this.mShelterList = new ArrayList<>(shelters);
             notifyDataSetChanged();
         }
     }
@@ -197,7 +197,7 @@ public final class DashboardActivity extends AppCompatActivity {
     private static final class SearchTask extends AsyncTask<SearchRequest, Void, List<Shelter>> {
         private final WeakReference<DashboardActivity> activity;
 
-        public SearchTask(DashboardActivity activity) {
+        SearchTask(DashboardActivity activity) {
             this.activity = new WeakReference<>(activity);
         }
 

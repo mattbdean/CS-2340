@@ -186,7 +186,7 @@ public class DetailedActivity extends AppCompatActivity {
         @Nullable final Throwable error;
         final Shelter newShelter;
 
-        public ClaimResult(@Nullable Throwable error, Shelter newShelter) {
+        ClaimResult(@Nullable Throwable error, Shelter newShelter) {
             this.error = error;
             this.newShelter = newShelter;
         }

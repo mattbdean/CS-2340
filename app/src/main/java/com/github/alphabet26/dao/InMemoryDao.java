@@ -9,11 +9,11 @@ import java.util.List;
 
 /**
  * InMemoryDao is the current dao being used in memory
- * @param <I> data
- * @param <T> data
+ * @param <I> Unique ID type
+ * @param <T> Model type
  */
 public abstract class InMemoryDao<I, T extends Model<I>> implements Dao<I, T> {
-    protected List<T> data;
+    protected final List<T> data;
 
     protected InMemoryDao(List<T> data) {
         this.data = new ArrayList<>(data);

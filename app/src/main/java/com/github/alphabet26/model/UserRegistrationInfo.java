@@ -2,10 +2,10 @@ package com.github.alphabet26.model;
 
 import com.google.auto.value.AutoValue;
 
-@AutoValue
 /**
  * user registration info represents a user's info for registration
  */
+@AutoValue
 public abstract class UserRegistrationInfo {
     /**
      * name getter method
