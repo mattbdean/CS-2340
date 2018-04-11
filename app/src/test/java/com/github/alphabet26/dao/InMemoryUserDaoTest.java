@@ -13,6 +13,8 @@ import java.util.List;
 import java.util.UUID;
 
 import static com.google.common.truth.Truth.assertThat;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
 
 public class InMemoryUserDaoTest {
@@ -148,5 +150,31 @@ public class InMemoryUserDaoTest {
     public void claimBeds_shouldThrowWhenBedsIsNotPositive() {
         dao.claimBeds(
             shelterDao, dao.register(REG_INFO).getId(), shelterDao.list().get(0).getId(), 0);
+    }
+
+    @Test
+    public void find_shouldReturnAppropriateUserWhenAvailable() {
+        User user = dao.register(REG_INFO);
+        UUID userId = user.getId();
+
+        //search for the user
+        assertEquals(user, dao.find(userId));
+    }
+
+    @Test
+    public void find_shouldReturnNullWhenNoMatchingUserIsPresent() {
+        User user = dao.register(REG_INFO);
+        UUID userId = user.getId();
+
+        //clear the dao
+        dao = new InMemoryUserDao();
+
+        assertNull(dao.find(userId));
+    }
+
+    @Test
+    public void find_shouldReturnNullWhenNoUserIDIsInputted() {
+        //search with a null ID
+        assertNull(dao.find(null));
     }
 }
