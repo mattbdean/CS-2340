@@ -19,6 +19,9 @@ import com.github.alphabet26.model.User;
 
 import java.lang.ref.WeakReference;
 
+/**
+ * thing
+ */
 public final class LoginActivity extends AppCompatActivity {
     private EditText usernameField;
     private EditText passwordField;
@@ -47,12 +50,20 @@ public final class LoginActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * thing
+     * @param view thing
+     */
     public void onLogin(View view) {
         // Try to log in using the given credentials
         new LoginTask(this).execute(usernameField.getText().toString(),
                 passwordField.getText().toString());
     }
 
+    /**
+     * thing
+     * @param view thing
+     */
     public void onRegister(View view) {
         startActivity(new Intent(this, RegisterActivity.class));
     }

@@ -17,6 +17,7 @@ import java.util.UUID;
 public interface UserDao extends Dao<UUID, User> {
     /** Registers a new user
      * @param newUser is the new user
+     * @return user
      */
     User register(UserRegistrationInfo newUser);
 
@@ -25,11 +26,15 @@ public interface UserDao extends Dao<UUID, User> {
      * username/password combination is correct. Returns null otherwise.
      * @param username username
      * @param password password
-     */
+     * @return user */
     @Nullable User login(String username, String password);
 
     /**
      * Attempts to claim a bed for a user with the specified ID
+     * @param shelterDao shelter dao
+     * @param userId user id
+     * @param shelterId shelter id
+     * @param beds beds
      *
      * @throws IllegalArgumentException If either the user ID or shelter ID is not valid, if the
      * shelter doesn't have enough beds, if the number of requested beds is not positive, or if the
@@ -39,5 +44,10 @@ public interface UserDao extends Dao<UUID, User> {
      */
     BedClaim claimBeds(ShelterDao shelterDao, UUID userId, int shelterId, int beds);
 
+    /**
+     * gets rid of claim
+     * @param shelterDao shelter dao
+     * @param userId user id
+     */
     void releaseClaim(ShelterDao shelterDao, UUID userId);
 }

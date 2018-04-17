@@ -19,6 +19,9 @@ import com.github.alphabet26.model.UserType;
 
 import java.lang.ref.WeakReference;
 
+/**
+ * thing
+ */
 public final class RegisterActivity extends AppCompatActivity {
     private EditText nameField;
     private EditText usernameField;
@@ -41,6 +44,10 @@ public final class RegisterActivity extends AppCompatActivity {
         vPasswordField.setTransformationMethod(new PasswordTransformationMethod());
     }
 
+    /**
+     * thing
+     * @param view view
+     */
     public void onRegister(View view) {
         if (passwordField.getText().toString().equals(vPasswordField.getText().toString())) {
             UserRegistrationInfo info = UserRegistrationInfo.create(

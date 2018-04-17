@@ -30,10 +30,19 @@ public final class EnumSpinner<T extends Enum<T>> extends AppCompatSpinner {
     /** If true, setAdapter() will work normally. Set to false when an enum class is specified. */
     private boolean setAdapterAllowed = true;
 
+    /**
+     * thing
+     * @param context thing
+     */
     public EnumSpinner(Context context) {
         super(context);
     }
 
+    /**
+     * thing
+     * @param context thing
+     * @param attrs thing
+     */
     @SuppressWarnings("unchecked")
     public EnumSpinner(Context context, AttributeSet attrs) {
         super(context, attrs);

@@ -12,6 +12,9 @@ import com.github.alphabet26.model.AgeRange;
 import com.github.alphabet26.model.Gender;
 import com.github.alphabet26.model.SearchRequest;
 
+/**
+ * thing
+ */
 public final class SearchQueryActivity extends AppCompatActivity {
     private TextInputLayout shelterInput;
     private EnumSpinner<Gender> genderSpinner;
@@ -26,6 +29,10 @@ public final class SearchQueryActivity extends AppCompatActivity {
         this.ageRangeSpinner = findViewById(R.id.ageRangeSpinner);
     }
 
+    /**
+     * thing
+     * @param view view
+     */
     public void onSearch(@Nullable View view) {
         Intent i = new Intent(this, DashboardActivity.class);
         i.putExtra(DashboardActivity.PARAM_SEARCH_REQ, SearchRequest.create(
