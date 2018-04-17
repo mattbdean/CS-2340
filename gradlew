@@ -7,7 +7,7 @@
 ##############################################################################
 
 # Add default JVM options here. You can also use JAVA_OPTS and GRADLE_OPTS to pass
-JVM options to this script.
+# JVM options to this script.
 DEFAULT_JVM_OPTS=""
 
 APP_NAME="Gradle"
@@ -156,7 +156,7 @@ if $cygwin ; then
 fi
 
 # Split up the JVM_OPTS And GRADLE_OPTS values into an array,
-following the shell quoting and substitution rules
+# following the shell quoting and substitution rules
 function splitJvmOpts() {
     JVM_OPTS=("$@")
 }
